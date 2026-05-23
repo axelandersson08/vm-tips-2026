@@ -54,11 +54,12 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
 .ob:hover{border-color:var(--green);color:var(--green);}
 .ob.sel{background:var(--green);border-color:var(--green);color:#fff;}
 .ob.dbl2{background:var(--gold);border-color:var(--gold);color:#1a1a1a;font-weight:700;}
-.shdr{background:#f8f8f5;padding:.28rem .8rem;font-size:.65rem;font-weight:600;text-transform:uppercase;color:var(--muted);display:grid;grid-template-columns:1.3rem 1fr auto auto;gap:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.srow{padding:.24rem .8rem;font-size:.76rem;display:grid;grid-template-columns:1.3rem 1fr auto auto;align-items:center;gap:2px;}
-.srow.draggable{cursor:grab;}
-.srow.drag-over{background:rgba(0,132,61,.15)!important;}
-.srow.dragging{opacity:.35;}
+.shdr{background:#f8f8f5;padding:.28rem .8rem;font-size:.65rem;font-weight:600;text-transform:uppercase;color:var(--muted);display:grid;grid-template-columns:1.3rem 1fr auto auto auto;gap:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.srow{padding:.24rem .8rem;font-size:.76rem;display:grid;grid-template-columns:1.3rem 1fr auto auto auto;align-items:center;gap:2px;}
+.srow.draggable{cursor:default;}
+.move-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.8rem;padding:0 2px;line-height:1;transition:color .1s;}
+.move-btn:hover{color:var(--green);}
+.move-btn:disabled{opacity:.2;cursor:default;}
 .srow.p1{background:rgba(0,132,61,.07);}
 .srow.p2{background:rgba(0,132,61,.04);}
 .srow.p3{background:rgba(201,168,76,.06);}
@@ -499,30 +500,33 @@ function renderGroup(gn){
       <button class="ob ${p==='X'?(isDbl?'dbl2':'sel'):''}" onclick="pickM('${gn}',${i},'X')">${m.oX}</button>
       <button class="ob ${p==='2'?(isDbl?'dbl2':'sel'):''}" onclick="pickM('${gn}',${i},'2')">${m.o2}</button></div>`;
   });
-  h+=`<div class="shdr"><span>#</span><span>Lag${tie?' <small style="color:var(--gold);font-size:.58rem"> ↕ dra vid lika</small>':''}</span><span class="cr">Sp</span><span class="cr">Pts</span></div>`;
+  h+=`<div class="shdr"><span>#</span><span>Lag${tie?' <small style="color:var(--gold);font-size:.58rem"> ↕ vid lika</small>':''}</span><span class="cr">Sp</span><span class="cr">Pts</span><span class="cr"></span></div>`;
   const card=document.getElementById('gc-'+gn); card.innerHTML=h;
   const pcls=['w','r','t','f'];
   st.forEach((row,i)=>{
     const div=document.createElement('div');
-    div.className=`srow p${i+1}${tie?' draggable':''}`;
-    div.draggable=tie; div.dataset.team=row.t; div.dataset.group=gn;
-    div.innerHTML=`<div class="pb ${pcls[i]}">${i+1}</div><span style="font-size:.77rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${row.t}</span><span class="cr" style="font-size:.71rem;color:var(--muted)">${row.played}</span><span class="cr" style="font-size:.71rem;font-weight:600">${row.pts}</span>`;
-    if(tie){div.addEventListener('dragstart',dragStart);div.addEventListener('dragover',dragOver);div.addEventListener('drop',dragDrop);div.addEventListener('dragleave',dragLeave);}
+    div.className=`srow p${i+1}`;
+    div.dataset.team=row.t; div.dataset.group=gn;
+    const canUp=tie&&i>0&&st[i-1].pts===row.pts;
+    const canDn=tie&&i<st.length-1&&st[i+1].pts===row.pts;
+    const upBtn=`<button class="move-btn" onclick="moveTeam('${gn}','${row.t}',-1)" ${canUp?'':'disabled'}>▲</button>`;
+    const dnBtn=`<button class="move-btn" onclick="moveTeam('${gn}','${row.t}',1)" ${canDn?'':'disabled'}>▼</button>`;
+    div.innerHTML=`<div class="pb ${pcls[i]}">${i+1}</div><span style="font-size:.77rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${row.t}</span><span class="cr" style="font-size:.71rem;color:var(--muted)">${row.played}</span><span class="cr" style="font-size:.71rem;font-weight:600">${row.pts}</span><span class="cr" style="display:flex;gap:1px">${tie?upBtn+dnBtn:''}</span>`;
     card.appendChild(div);
   });
 }
-let dragSrc=null;
-function dragStart(e){dragSrc=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
-function dragOver(e){e.preventDefault();this.classList.add('drag-over');return false;}
-function dragLeave(){this.classList.remove('drag-over');}
-function dragDrop(e){
-  e.stopPropagation(); this.classList.remove('drag-over'); if(dragSrc===this) return;
-  const gn=this.dataset.group, gs=S.groups[gn];
-  const st=computeStandings(gn), order=st.map(r=>r.t);
-  const fi=order.indexOf(dragSrc.dataset.team), ti=order.indexOf(this.dataset.team);
-  if(fi<0||ti<0) return;
-  order.splice(fi,1); order.splice(ti,0,dragSrc.dataset.team);
-  gs.order=order; dragSrc.classList.remove('dragging'); renderGroup(gn); debounceSave();
+function moveTeam(gn, team, dir){
+  const gs=S.groups[gn];
+  const st=computeStandings(gn);
+  const order=st.map(r=>r.t);
+  const idx=order.indexOf(team);
+  if(idx<0)return;
+  const ni=idx+dir;
+  if(ni<0||ni>=order.length)return;
+  if(st[idx].pts!==st[ni].pts)return;
+  [order[idx],order[ni]]=[order[ni],order[idx]];
+  gs.order=order;
+  renderGroup(gn);updateScore();
 }
 function activateDbl(gn){
   const gs=S.groups[gn];
@@ -746,6 +750,22 @@ async function loadAdmin(){
 function encTip(tip){
   try{return btoa(unescape(encodeURIComponent(JSON.stringify(tip))));}catch(e){return '';}
 }
+ 
+ 
+// Expose to global for inline handlers
+window.startTipping=startTipping;
+window.navTab=navTab;
+window.goToThirds=goToThirds;
+window.goToKnockout=goToKnockout;
+window.toggleThird=toggleThird;
+window.activateDbl=activateDbl;
+window.pickM=pickM;
+window.toggleKO=toggleKO;
+window.moveTeam=moveTeam;
+window.copyLink=copyLink;
+window.submitTips=submitTips;
+window.loadAdmin=loadAdmin;
+window.loadSaved=loadSaved;
  
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 </script>
