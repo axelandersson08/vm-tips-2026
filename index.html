@@ -1,3 +1,706 @@
+
+Claude finished the response
+Jag vill göra en hemsida åt mitt VM-tips, lite som en predictor. Jag har gjort tipsformatet med regler och så i ett excel-ark, men insett att det är smidigare att göra en hemsida att låta deltagarna svara på tipset i. Kan du hjäpa mig med detta?
+
+8 apr.
+Kul idé! Jag har ett par frågor för att bygga rätt sak:
+
+Berätta gärna! Och om du vill kan du också dela ditt Excel-ark så kan jag se hur ditt befintliga format ser ut – det gör det lättare att bygga rätt.
+
+Q: Vilket VM är det – fotboll, ishockey, något annat?
+A: Fotbolls-VM (FIFA)
+
+Q: Vad ska deltagarna tipa på?
+A: Mestadels matchresultat, men även ett slutspelsträd, och lite bonusfrågor. Du kommer se i excelarket.
+
+Q: Behöver du ett admin-läge för att mata in faktiska resultat och räkna poäng automatiskt?
+A: Gärna automatisk poängräkning, men jag kan också lösa det själv.
+
+8 apr.
+Kan du ladda upp Excel-arket så jag kan se hur ditt tipsformat ser ut?
+
+
+Book_2.xlsx
+xlsx
+
+Funkar detta?
+
+8 apr.
+
+Viewed a file, ran a command
+Viewed a file, ran a command
+Nu har jag en tydlig bild av hela tipsformatet. Låt mig bygga hemsidan!
+
+Formatet innehåller:
+
+72 gruppspelsmatcher (grupp A–L, 6 matcher per grupp) med odds-baserade poäng och dubbelchans
+Avancemang till 16-delsfinal (32 lag inkl. 8 grupp-3:or)
+Slutspelsträd: 16-delsfinal → kvartsfinal → semifinal → final
+Bonusfrågor: Vinnare, silver, brons, skyttekung, assistkung, Golden Ball
+
+Viewed a file, created a file, read a file
+Viewed a file, created a file, read a file
+Här är hemsidan! Den innehåller allt från ditt Excel-ark:
+
+Gruppspel — alla 72 matcher i grupp A–L med exakta odds från arket. Man klickar på ett odds-knappar (1/X/2) för att välja utfall, och poängen beräknas automatiskt baserat på oddsens poängvärde. Dubbelchans-knappen aktiveras per grupp — klicka på den och sedan på en match för att sätta dubbelpoäng.
+
+Slutspel — fält för alla 32 lag i 16-delsfinal (inkl. 8 grupp-3:or), sedan åttondelsfinal, kvartsfinal och semifinal med rätt matchningsstruktur från arket (t.ex. E1 möter en 3:a, A2 möter B2 osv).
+
+Bonus — VM-vinnare (100p), silver (80p), brons (50p), skyttekung (80p), assistkung (80p) och Golden Ball (80p).
+
+Summering — visar allt ifyllt med en "Skicka tips"-knapp som öppnar ett e-postmeddelande till axelandersson08@hotmail.com förfyllt med hela tipset, samt en "Kopiera tips"-knapp.
+
+Två saker du kan behöva justera: e-postadressen och eventuellt Swish-numret (kan läggas till på startsidan). Vill du ändra något?
+
+
+Vm tips 2026
+Code · HTML 
+Du, det här är grymt. Finns lite finlir kvar bara. Kan du göra så att gruppettan och grupptvåan fylls i automatiskt utifrån hur man tippat i fösta steget, gruppspelsmatcherna? Sen tänker jag att man får välja 8 av 12 grupptreor (utifrån de man gjort i första steget) själv, som sen blir till ett redan sammanställt slutspel utifrån FIFAs regler över hur sluspelen byggs upp (denna information finns på nätet, ex. wikipedias sida "FIFA World Cup 2026"), så slipper individen själv räkna på vilka som blir ettor, och så vidare. Sen kan vi testa lite estetik och praktik, men detta var en grym start!
+
+8 apr.
+
+Searched the web
+Searched the web
+Nu har jag allt jag behöver — inkl. FIFAs exakta 495-kombinations-matris för 16-delsfinalen. Nu bygger jag om sidan ordentligt.
+
+
+Created 2 files, ran a command, read a file
+Created 2 files, ran a command, read a file
+Här är den uppdaterade versionen! Det här är vad som är nytt:
+
+Automatisk grupprankning — när du klickar matchresultat i gruppspelet uppdateras en liten tabellvy direkt i varje gruppruta. Ettan, tvåan och trean beräknas automatiskt utifrån poäng.
+
+Grupp-3:or (nytt steg) — efter gruppspelet hamnar du på ett nytt steg där alla 12 tippade grupptreor visas med deras poäng. Du väljer exakt 8 av dem — precis som FIFA väljer bästa 8. Det går inte att gå vidare förrän du valt 8.
+
+Slutspelsträdet byggs automatiskt — baserat på FIFAs officiella matchstruktur för VM 2026 (Matcherna 73–88 från Wikipedias regelartikel). Gruppettor och -tvåor är redan ifyllda, och de 8 valda grupptreorna placeras in enligt FIFAs kombinations-matris (greedy-tilldelning per eligible grupper per slot). Du tippar sen vinnaren i varje match — och trädet kaskaderar uppåt runda för runda.
+
+Berätta vilka estetiska och praktiska justeringar du vill ha härnäst!
+
+
+Vm tips 2026
+Code · HTML 
+Dehär är jättebra! Har lite anmärkningar dock. 1) Man ska få 12 poäng i 16-delsfinalen, inte 24. 2) Hade varit najs om man kan välja tabellordning mellan lag som är på samma poäng när man tippar gruppspelet. 3) En viktig grej är att man tippar på RÄTT LAG i alla steg av slutspelet, inte RÄTT VINNARE. Om exempelvis Sverige går till 16-delsfinal (och man tippat det) får man 12 poäng, (oavsett på vilket sätt). Det blir dock även onödigt att tippa vilka som vinner semifinalerna, eftersom det inte finns några poäng för rätt lag i final. 4) Döp tipset till "Axels stora VM-tips 2026", och ha även nåt liknande namn som domän. 5) Gör så att jag kan öppna allas tips i en länk som de skickar till min mail när de trycker på "skicka in". 6) I exemplet i namnrutan på första sidan, skriv istället "ex. Axel Andersson". 7) Tänk på att jag vill skicka detta tipps till många. Se till så att det går.
+
+Show more
+9 apr.
+Några snabba följdfrågor innan jag uppdaterar:
+
+Till punkt 5 (länk i mailet): För att kunna öppna allas tips i en länk behöver tipset antingen sparas någonstans online, eller kodas direkt in i URL:en. Vilket alternativ passar bäst?
+
+Svara gärna på dessa två så fixar jag allt på en gång! De påverkar ganska mycket hur "Skicka in"-knappen och delningsfunktionen ska byggas.
+
+Q: Hur ska tips-länken fungera? (punkt 5)
+A: Spara tips i en delad databas online (kräver lite mer setup)
+
+Q: Punkt 7 – hur tänker du distribuera tipset?
+A: Vet inte än – gör det smidigt för båda
+
+9 apr.
+Perfekt. Då bygger jag in en delad databas direkt i artefakten (via det inbyggda storage-API:et som finns i Claude-artefakter) — det innebär att alla tips sparas automatiskt och du kan se dem samlade på ett ställe direkt i samma sida, utan att behöva sätta upp någon extern server.
+
+För distribution gör jag det så att filen fungerar både som fristående HTML (kan delas via mail/Drive/Dropbox) och är redo att läggas upp på t.ex. GitHub Pages med ett snyggt URL — jag skriver instruktioner för båda.
+
+Låt mig nu fixa alla 7 punkterna:
+
+V
+
+Connecting to visualize...
+Artefaktverktyget tycks ha timeout:at på grund av kodens storlek. Låt mig spara den direkt som fil istället:
+
+
+Ran a command, read a file
+Ran a command, read a file
+Här är den uppdaterade versionen! Här är vad som ändrats:
+
+1. Poängen fixade — 12p i 16-delsfinal, 24p i åttondelsfinal, 36p i kvartsfinal, 60p i semifinal. Poäng räknas för att ett lag finns i rätt runda, inte för rätt vinnare.
+
+2. Dra-och-släpp vid lika poäng — när lag i en grupp har samma poäng visas "↕ dra vid lika" i tabellhuvudet och raderna blir dragbara. Dra ett lag förbi ett annat för att manuellt sätta tiebreak-ordning.
+
+3. Finalen borttagen — slutspelet slutar vid semifinal. En notis förklarar att VM-vinnaren tippas under Bonus istället (100p).
+
+4. Nytt namn — "Axels Stora VM-Tips 2026" genomgående.
+
+5. Tips-länk i mailet — när deltagaren trycker "Skicka in tips" öppnas ett mail till dig med en länk som kodar hela tipset i URL:en. Du öppnar länken och ser deras kompletta tips direkt. Det sparas också i Admin-fliken (lösenord: axel2026).
+
+6. Namnexempel — "ex. Axel Andersson".
+
+7. Distribution — filen fungerar att dela direkt via mail/Drive/Dropbox. Vill du lägga upp den på GitHub Pages (gratis, eget URL), skicka filen till mig och jag hjälper dig sätta upp det med en instruktion.
+
+
+Vm tips 2026
+Code · HTML 
+Tjena du! Vill ändra om lite i tipset! Såhär: 1: På första sidan, lägg också en ruta för e-postadress, som jag kan ha för att skicka tillbaka uppdateringar om hur det går i stipset, ställningar, rätta svar, osv. 2: Ändra om hela slutspelssidan. Istället för slutspelsträdet, sätt de 32 lagen som gått vidare från gruppspelet och treorna i en lista. I den listan vill jag att man ska kunna välja de 16 som går till åttondel, sen en lista där man väljer vilka som går till kvart, och sist vilka som går till semi. På så sätt blir de mindre chansartat i hur trädet e uppbyggt. 3. Fler bonusfrågor - Lag med flest gula kort och Sveriges meste målgörare. (båda 40p). 4. Jag vill säkerställa att allting sparas bra. Kan du inte göra så att ja kan öppna alla tips från en sida på hemsidan? Kan använda en server om så behövs.
+
+Show more
+20 maj
+Några snabba frågor om punkt 2 och 4 innan jag kör igång:
+
+Svara gärna på de två frågorna så kör jag! Verktyget verkar ha fastnat — välj direkt här eller skriv svaret i text så löser vi det.
+
+Q: Punkt 2 – ska man välja fritt bland alla 32 lag till åttondel (oberoende av bracket), eller bara kunna välja bland lag som man tippat går vidare från 16-delsfinal?
+A: Bara bland de man tippat går vidare från 16-del, men markera i listan vilken grupp lagen kommer ifrån!
+
+Q: Punkt 4 – för att spara tips säkert på en server behöver vi någon backend. Vad passar dig bäst?
+A: Firebase (gratis, realtid – kräver Google-konto)
+
+20 maj
+Perfekt. Firebase det är — och listan filtreras kaskaderande (åttondel visar bara de 16 du valt till 16-del, kvart visar bara de 8 du valt till åttondel, osv), med gruppmärkning på varje lag.
+
+Jag behöver ett Firebase-projekt för att koppla in databasen. Har du ett redan, eller ska jag guida dig genom att skapa ett?
+
+Q: Firebase-projekt?
+A: Jag har inget Firebase-projekt – guida mig
+
+20 maj
+Här är steg-för-steg för att skapa ett Firebase-projekt. Det tar ca 5 minuter.
+
+Steg 1 — Skapa projekt
+
+Gå till console.firebase.google.com
+Klicka "Add project" (eller "Skapa projekt")
+Namn: axels-vm-tips-2026 (eller vad du vill)
+Google Analytics: kan stängas av, behövs inte
+Klicka igenom tills projektet skapas
+Steg 2 — Lägg till en webbapp
+
+På projektets startsida, klicka på </> (webb-ikonen)
+Ge appen ett namn, t.ex. vm-tips
+Bocka inte i "Firebase Hosting" (behövs inte nu)
+Klicka "Register app"
+Du får nu ett kodblock som ser ut ungefär så här — kopiera hela firebaseConfig-objektet:
+js
+const firebaseConfig = {
+  apiKey: "AIza...",
+  authDomain: "axels-vm-tips-2026.firebaseapp.com",
+  projectId: "axels-vm-tips-2026",
+  storageBucket: "axels-vm-tips-2026.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abc123"
+};
+Steg 3 — Aktivera Firestore
+
+I vänstermenyn: Build → Firestore Database
+Klicka "Create database"
+Välj "Start in test mode" (vi låser det senare)
+Välj en region, t.ex. europe-west3 (Frankfurt)
+Klicka "Enable"
+När du har firebaseConfig-objektet, klistra in det här så bygger jag in det i hemsidan direkt!
+
+Gör stegen nu också!
+
+20 maj
+Tyvärr kan jag inte göra det åt dig — Firebase-kontot måste vara kopplat till ditt Google-konto, och jag har ingen möjlighet att logga in på Google eller Firebase å dina vägnar.
+
+Men det går verkligen snabbt — 5 minuter max. Gör så här:
+
+Öppna console.firebase.google.com i en ny flik
+Följ de tre stegen ovan
+Klistra in firebaseConfig-objektet här
+Så bygger jag in det direkt och hemsidan är klar!
+
+Har du gjort dessa? 1: På första sidan, lägg också en ruta för e-postadress, som jag kan ha för att skicka tillbaka uppdateringar om hur det går i stipset, ställningar, rätta svar, osv. 2: Ändra om hela slutspelssidan. Istället för slutspelsträdet, sätt de 32 lagen som gått vidare från gruppspelet och treorna i en lista. I den listan vill jag att man ska kunna välja de 16 som går till åttondel, sen en lista där man väljer vilka som går till kvart, och sist vilka som går till semi. På så sätt blir de mindre chansartat i hur trädet e uppbyggt. 3. Fler bonusfrågor - Lag med flest gula kort och Sveriges meste målgörare. (båda 40p).
+
+20 maj
+Du har rätt — jag fastnade på Firebase-diskussionen och byggde aldrig in punkterna 1, 2 och 3. Gör det nu direkt!
+
+
+Ran 2 commands
+Ran 2 commands
+Bra, jag har hela filen. Nu kör jag alla tre ändringarna:
+
+
+Ran a command, read a file
+Ran a command, read a file
+Klart! Här är vad som ändrats:
+
+1. E-postadress på startsidan — ny ruta direkt under namnfältet med förklarande text om att den används för uppdateringar. E-posten sparas med tipset och syns i admin-vyn bredvid varje namn.
+
+2. Ny slutspelssida — helt ombyggd som tre kaskaderande listor:
+
+16-del → Åttondelsfinal: välj 16 av alla 32 lag (märkta med grupp + placering, t.ex. "F1 Sverige")
+Åttondelsfinal → Kvartsfinal: välj 8 av de 16 du valt ovan
+Kvartsfinal → Semifinal: välj 4 av de 8 du valt ovan Om du avmarkerar ett lag i en tidigare runda tas det automatiskt bort från senare rundor också.
+3. Två nya bonusfrågor — "Lag med flest gula kort" (40p) och "Sveriges meste målgörare" (40p), båda med egna fält i bonussektionen och räknas med i summering och poängvisning.
+
+Poängreglerna på startsidan är också uppdaterade med de nya frågorna!
+
+
+Vm tips 2026
+Code · HTML 
+Och steg fyra?
+
+20 maj
+Du har rätt — Firebase-integrationen för säker lagring är inte gjord. Vi är fortfarande fastnade på att du inte har ett projekt än.
+
+Kortaste vägen dit är 5 minuter på console.firebase.google.com — följ de tre stegen jag beskrev tidigare, klistra in firebaseConfig-blocket här, så bygger jag in det direkt. Det är genuint det enda sättet att komma vidare, jag kan inte skapa Google-konton eller Firebase-projekt åt dig.
+
+Vill du att jag ska förbereda all Firebase-kod i filen redan nu (med en platshållare för config) så är allt klart att klistra in när du har uppgifterna?
+
+Gör så ja kan se alla tips på admin sidan och så att de går att öpnna där!
+
+20 maj
+Det fungerar redan i teorin — admin-sidan visar alla sparade tips och har "Öppna tips i ny flik"-länk för varje person. Problemet är att window.storage (Claude-artefaktens inbyggda lagring) inte finns tillgänglig i en nedladdad HTML-fil, bara inuti Claude.ai:s artefaktvy.
+
+Så det beror på hur du kör filen:
+
+Om du öppnar filen lokalt (dubbelklick på HTML-filen) — storage fungerar inte, och admin-sidan ser tom ut. Det är här Firebase behövs.
+
+Om du lägger upp filen på en webbsida (t.ex. GitHub Pages) — samma problem, ingen delad databas.
+
+Det finns ett alternativ som fungerar utan Firebase och utan server: tips sparas i URL-länken som varje deltagare skickar till dig via mail. Du öppnar länken → tips laddas in → du ser allt. Administratörssidan kan då fungera som en manuell länksamling där du klistrar in mottagna länkar och kan öppna dem.
+
+Vill du att jag bygger det så? Det skulle fungera direkt utan någon setup alls — du tar emot ett mail med en länk, klistrar in den i admin-sidan, och kan öppna tipset med ett klick.
+
+Nej men ja fixar me firebase! ge mig instruktionerna bara!
+
+20 maj
+Här är instruktionerna:
+
+Steg 1 — Skapa projekt
+
+Gå till console.firebase.google.com
+Klicka "Add project"
+Namn: axels-vm-tips-2026
+Stäng av Google Analytics (behövs inte)
+Klicka "Create project"
+Steg 2 — Lägg till webbapp
+
+På projektstartsidan, klicka på </> (webb-ikonen)
+Appnamn: vm-tips
+Bocka inte i Firebase Hosting
+Klicka "Register app"
+Du får ett kodblock — kopiera hela firebaseConfig-objektet, det ser ut så här:
+js
+const firebaseConfig = {
+  apiKey: "AIza...",
+  authDomain: "axels-vm-tips-2026.firebaseapp.com",
+  projectId: "axels-vm-tips-2026",
+  storageBucket: "axels-vm-tips-2026.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abc123"
+};
+Steg 3 — Aktivera Firestore
+
+Vänstermenyn: Build → Firestore Database
+Klicka "Create database"
+Välj "Start in test mode"
+Region: europe-west3 (Frankfurt)
+Klicka "Enable"
+Det är allt! Klistra in ditt firebaseConfig-objekt här så bygger jag in Firebase i hemsidan direkt.
+
+const firebaseConfig = {  apiKey: "AIzaSyDaJFMAZvddUvu3DU2WZHf4fSryT_p0tgc",  authDomain: "axels-vm-tips-2026.firebaseapp.com",  projectId: "axels-vm-tips-2026",  storageBucket: "axels-vm-tips-2026.firebasestorage.app",  messagingSenderId: "387957712829",  appId: "1:387957712829:web:0a2d8a8736684c19f014d4",  measurementId: "G-V4NVBVCQW0"};      Kan jag sen lägga in dehär i github Pages?
+
+09:28
+Ja, GitHub Pages funkar perfekt för det här! Jag bygger in Firebase nu.
+
+En viktig notering: din apiKey är synlig i HTML-koden — det är okej för Firebase (det är designat så), men du bör låsa ner Firestore-reglerna så inte vem som helst kan läsa/skriva. Jag lägger in säkrare regler också.
+
+
+Ran 4 commands, edited 2 files
+Ran 4 commands, edited 2 files
+Nu behöver vi också ändra <script>-taggen till type="module" för att Firebase-importen ska fungera:
+
+
+Add type=module and expose functions to window
+Add type=module and expose functions to window
+Nu behöver vi också sätta Firestore-säkerhetsregler så inte utomstående kan radera data. Skapa en fil firestore.rules:
+
+
+Ran 2 commands
+Ran 2 commands
+Ser bra ut. Nu skapar jag också Firestore-reglerfilen och en GitHub-instruktionsfil:
+
+
+Ran a command, read a file
+Ran a command, read a file
+Klart! Här är vad som gjorts och tre filer att ladda ner:
+
+vm-tips-2026.html — nu med Firebase inbyggt. Sparar tips direkt till Firestore när deltagaren klickar "Skicka in". Admin-sidan laddar alla inlämnade tips från Firebase och varje tips har en "Öppna i ny flik"-länk.
+
+firestore.rules — klistra in dessa i Firebase Console → Firestore → Rules. De tillåter alla att skriva och läsa (för tipsinlämning), men ingen kan radera.
+
+GITHUB_PAGES_INSTRUKTIONER.md — steg-för-steg för att lägga upp sidan. Kortversionen:
+
+Skapa ett repo på GitHub som heter vm-tips-2026
+Ladda upp HTML-filen döpt till index.html
+Aktivera GitHub Pages under Settings → Pages
+Din URL blir https://ditt-användarnamn.github.io/vm-tips-2026/
+
+Vm tips 2026
+Code · HTML 
+
+Firestore
+RULES 
+
+Github pages instruktioner
+Document · MD 
+hur lägger jag till en fil i firestore - rules
+
+09:50
+Gå till console.firebase.google.com
+Välj ditt projekt axels-vm-tips-2026
+I vänstermenyn: Build → Firestore Database
+Klicka på fliken "Rules" (uppe i mitten)
+Du ser ett textredigeringsfält med nuvarande regler — radera allt och klistra in innehållet från firestore.rules-filen
+Klicka "Publish"
+Klart!
+
+Databasen på min andra hemsida, onsdags-pilen, lades ner. Nu sparas ingenting på den. Om ja refreshar  hemsidan är allt jag gjort på 0 igen. Vad kan ha hänt?
+
+11:06
+Det låter som att Firebase-projektet för Onsdags-Pilen antingen har fått sina Firestore-regler låsta (test mode går ut efter 30 dagar) eller att projektet/databasen har inaktiverats.
+
+Kolla dessa tre saker i ordning:
+
+1. Firestore-reglerna har gått ut Det vanligaste problemet. Test mode-regler slutar gälla efter 30 dagar.
+
+Firebase Console → ditt Onsdags-Pilen-projekt → Firestore → Rules
+Om det står något med ett datum som passerat är det boven
+Byt ut reglerna mot samma som i firestore.rules-filen jag gjorde till VM-tipset
+2. Firestore-databasen är pausad/inaktiverad
+
+Firebase Console → Firestore Database
+Om det står "This database has been disabled" eller liknande, klicka för att återaktivera
+3. Projektet är på Spark-planen och har nått kvotgränsen
+
+Firebase Console → uppe till vänster, kolla om det står något om "quota exceeded"
+Spark (gratis) tillåter 50 000 läsningar/dag — osannolikt för en dartssida men möjligt
+Öppna Firebase Console för Onsdags-Pilen och kolla fliken Rules först — det är regel-expiry som är absolut vanligast. Vad ser du där?
+
+kan databasen lagra om folk lämnar in tipset från sina egna enheter?
+
+15:27
+Ja, absolut! Det är precis det Firebase är byggt för — alla deltagare skickar in sitt tips från sin egen telefon/dator, och allt hamnar i samma databas som du sedan ser i admin-sidan.
+
+Flödet är:
+
+Du delar länken (GitHub Pages-URL:en) med alla
+Varje person fyller i sitt tips på sin egen enhet
+När de klickar "Skicka in tips" sparas tipset direkt till Firebase
+Du öppnar admin-sidan → anger lösenord → ser alla inlämnade tips
+Enda kravet är att Firestore-reglerna tillåter skrivning från alla (vilket de gör med reglerna vi satte), och att sidan ligger på GitHub Pages (eller liknande) så alla kan nå samma URL.
+
+Har du lagt upp den på GitHub Pages än?
+
+Drag-funktionen  när flera lag är lika fungerar inte riktigt på mobilen. Går det att lösa? helt ok om det inte går.
+
+11:40
+Det går att lösa! Drag-and-drop fungerar inte på mobil eftersom touch-events är annorlunda än mus-events. Enklaste lösningen är att byta ut drag-funktionen mot upp/ned-pilar istället — fungerar perfekt på både mobil och dator.
+
+
+Ran 11 commands, read a file
+Ran 11 commands, read a file
+Klart! Drag-and-drop är utbytt mot ▲ ▼-knappar som fungerar på både mobil och dator. De syns bara när lag har samma poäng, och du kan bara flytta ett lag förbi ett annat om de faktiskt är poängmässigt lika — inte upp eller ner förbi lag med fler/färre poäng.
+
+
+Vm tips 2026
+Code · HTML 
+Behöver ja ändra nåt i firebase eller är det bara o lägga upp den här nya koden i github?
+
+11:49
+Bara ladda upp den nya koden på GitHub — inget behöver ändras i Firebase.
+
+Firebase-projektet och Firestore-databasen är redan uppsatt. Koden pekar redan på ditt projekt med din config. Det enda du gör är:
+
+Gå till ditt vm-tips-2026-repo på GitHub
+Klicka på index.html → pencil-ikonen (Edit) → eller "Add file → Upload files"
+Ladda upp den nya vm-tips-2026.html och döp om den till index.html
+Klicka "Commit changes"
+Sidan uppdateras inom en minut automatiskt.
+
+Men den gamla index.html ligger ju kvar. Är det ett problem?
+
+11:50
+Nej, inget problem. När du laddar upp en ny index.html skriver den helt enkelt över den gamla — GitHub ersätter filen med samma namn automatiskt. Du behöver inte ta bort något manuellt.
+
+En till viktig fråga. Om jg gör ett tips med namn och mailadress, lämnar in det, och sen går in på hemsidan med samma namn och mail, kommer det gamla tipset ligga sparat i admin ändå, eller kommer den täcka att ett nytt tips görs och att den överskriver det gamla?
+
+11:51
+Det gamla tipset skrivs över.
+
+Sparnyckeln i Firebase bygger på namnet — så om någon lämnar in ett tips som "Erik Andersson", och sen går in och gör ett nytt tips med samma namn och skickar in det, ersätts det förra i databasen.
+
+Det kan vara antingen bra eller dåligt beroende på hur du vill ha det:
+
+Bra — om man vill kunna rätta till sitt tips innan deadline.
+
+Dåligt — om man råkar skriva samma namn som någon annan, eller om du vill låsa tips efter ett visst datum.
+
+Vill du att jag ändrar det så att varje inlämning alltid sparas som en ny post (med tidsstämpel i nyckeln), så inget kan skrivas över? Då ser du alla versioner i admin och kan själv välja vilken som gäller.
+
+Om två heter "björn" men har olika efternamn, kan de skriva in sitt sina förnamn och olika mailadresser eller måste dom särskiljas med olika efternamn i namnrutan?
+
+11:54
+De måste särskiljas med efternamn i namnrutan — just nu är det namnet som är sparnyckeln i Firebase, inte mailadressen.
+
+Så "Björn Andersson" och "Björn Svensson" funkar fint, men två stycken som bara skriver "Björn" skriver över varandras tips.
+
+Vill du att jag ändrar så att nyckeln är namn + mail istället? Då kan till och med två personer med exakt samma namn ha separata tips, så länge de har olika mailadresser.
+
+Om jag nu lägger in detta kod, kommer tips sparade på den kamla koden lagras i admin ändå?
+
+11:55
+Ja! Tips sparas i Firebase/Firestore, inte i HTML-filen. Koden är bara gränssnittet — databasen lever separat på Googles servrar.
+
+Så oavsett om du byter ut HTML-filen på GitHub hur många gånger som helst, ligger alla tidigare inlämnade tips kvar i Firebase och syns i admin-sidan.
+
+Hur lång tid tar de från att jag lagt in index.html till att sidan uppdateras? Står förövrigt failure brevid "add files via upload" på github sidan
+
+12:06
+Vanligtvis 1–2 minuter, ibland direkt.
+
+Men "failure" låter som att något gick fel med GitHub Pages-bygget! Kolla så här:
+
+Gå till ditt repo på GitHub
+Klicka på "Actions" i toppmenyn
+Där ser du byggen — klicka på det röda som misslyckades
+Vad står det för felmeddelande?
+Vanligaste orsakerna är att filen heter något annat än index.html, eller att Pages inte är aktiverat på rätt branch. Vad ser du under Actions?
+
+Det står som failure vid "pages build and deployment" sen om man klickar där får man upp denna kod: Run actions/deploy-pages@v5
+(node:2169) [DEP0040] DeprecationWarning: The punycode module is deprecated. Please use a userland alternative instead.
+(Use node --trace-deprecation ... to show where the warning was created)
+Fetching artifact metadata for "github-pages" in this workflow run
+Found 1 artifact(s)
+Creating Pages deployment with payload:
+{
+    "artifact_id": 7176114222,
+    "pages_build_version": "4d0c95afffbd85edd9188f34b81fc05920a14671",
+    "oidc_token": "***"
+}
+Error: Creating Pages deployment failed
+Error: HttpError: Bad credentials
+    at /home/runner/work/_actions/actions/deploy-pages/v5/node_modules/@octokit/request/dist-node/index.js:124:1
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at createPagesDeployment (/home/runner/work/_actions/actions/deploy-pages/v5/src/internal/api-client.js:125:1)
+    at Deployment.create (/home/runner/work/_actions/actions/deploy-pages/v5/src/internal/deployment.js:73:1)
+    at main (/home/runner/work/_actions/actions/deploy-pages/v5/src/index.js:30:1)
+Error: Error: Failed to create deployment (status: 401) with build version 4d0c95afffbd85edd9188f34b81fc05920a14671. Request ID C420:2803B:A03F7E8:268B1F81:6A117A85
+
+Show more
+12:08
+Det är ett behörighetsproblem — GitHub Pages har inte rätt att deploya. Fixas enkelt:
+
+Gå till ditt repo → Settings
+Vänstermenyn → Pages
+Under "Build and deployment", kolla att Source är satt till "Deploy from a branch" (inte "GitHub Actions")
+Branch: main, folder: / (root)
+Klicka Save
+Det verkar som att det råkat ställas in på "GitHub Actions" istället för den enklare branch-metoden. Byt till "Deploy from a branch" så bör det funka direkt utan den där deployment-koden.
+
+Funkar inte. Den var redan deploy from branch. testade byta fram och tillbaka också
+
+12:10
+Prova det här — det är ett känt problem med GitHub Pages-behörigheter:
+
+Gå till ditt repo → Settings
+Vänstermenyn → Actions → General
+Scrolla ner till "Workflow permissions"
+Välj "Read and write permissions"
+Klicka Save
+Gå tillbaka till Actions → klicka på det misslyckade bygget → "Re-run all jobs"
+Funkar det?
+
+Funkar nu! finns det nån begränsning i vad firebase klarar? vi kan genuint bli 50-60 personer.
+
+12:32
+Nej, 50–60 personer är ingenting för Firebase. Du är på Spark-planen (gratis) och gränserna är:
+
+50 000 läsningar/dag
+20 000 skrivningar/dag
+1 GB lagring
+Med 60 personer som vardera skickar in ett tips och du öppnar admin-sidan ett par gånger om dagen pratar vi om några hundra operationer totalt — långt under gränsen. Du skulle behöva hundratusentals användare per dag för att ens komma nära.
+
+Så kör på, inga problem!
+
+Vad tycker du om poängfördelningen? kan du räkna ungefär hur många procent av poängen som ligger i slutspelet, gruppspelet och bonusfrågorna? vet att gruppspelet varierar, men ta lägsta medle och högsta poängvärden.
+
+12:33
+Kul fråga! Låt mig räkna igenom det ordentligt.
+
+GRUPPSPEL (72 matcher)
+
+Odds-poängen varierar per match. Lägsta möjliga utfall per match är 10p (Tyskland vinner mot Curaçao), högsta är 340p (Curaçao slår Tyskland). Med dubbelchans multipliceras en match ×2.
+
+Jag räknar på genomsnittliga odds istället för att summera alla 216 möjliga utfall:
+
+Snittodds för ett resultat ligger runt 30–35p per match
+72 matcher × ~32p = ~2 300p i snitt
+Lägsta realistiska (väljer alltid favorit, inga skräll): ~1 400p
+Högsta realistiska (träffar många skräll + dubbelchansar): ~4 000–5 000p
+SLUTSPEL
+
+32 lag i 16-del: 32 × 12 = 384p (fast, alla får detta)
+16 lag i åttondelsfinal: 16 × 24 = 384p
+8 lag i kvartsfinal: 8 × 36 = 288p
+4 lag i semifinal: 4 × 60 = 240p
+Totalt slutspel: 1 296p (fast, om man prickar allt)
+BONUS
+
+VM-vinnare: 100p
+Silver: 80p
+Brons: 50p
+Skyttekung: 80p
+Assistkung: 80p
+Golden Ball: 80p
+Flest gula kort: 40p
+Sveriges målgörare: 40p
+Totalt bonus: 550p (fast)
+FÖRDELNING (ungefärlig)
+
+Del	Lågt gruppspel	Snitt gruppspel	Högt gruppspel
+Gruppspel	1 400p — 42%	2 300p — 56%	5 000p — 75%
+Slutspel	1 296p — 39%	1 296p — 31%	1 296p — 19%
+Bonus	550p — 17%	550p — 13%	550p — 8%
+Totalt	~3 250p	~4 150p	~6 850p
+Min reflektion: Fördelningen är rimlig men slutspelet känns lite väl fast och litet jämfört med gruppspelet — speciellt om någon prickar många skräll i gruppspelet kan slutspelet bli nästan irrelevant. Om du vill jämna ut det lite skulle man kunna höja poängen per lag i åttondelsfinal/kvartsfinal/semifinal, eller lägga till poäng för finalisterna också. Men det är smaksak!
+
+Om man bygger slutspelet 12, 25, 50, 100 i 16-del 8-del kvart semi, är de bättre
+
+12:42
+Låt mig räkna om med de nya värdena:
+
+SLUTSPEL (nytt)
+
+32 lag i 16-del: 32 × 12 = 384p
+16 lag i åttondelsfinal: 16 × 25 = 400p
+8 lag i kvartsfinal: 8 × 50 = 400p
+4 lag i semifinal: 4 × 100 = 400p
+Totalt slutspel: 1 584p
+NY FÖRDELNING
+
+Del	Lågt	Snitt	Högt
+Gruppspel	1 400p — 39%	2 300p — 52%	5 000p — 72%
+Slutspel	1 584p — 44%	1 584p — 36%	1 584p — 23%
+Bonus	550p — 15%	550p — 12%	550p — 8%
+Totalt	~3 550p	~4 450p	~7 150p
+Är det bättre? Ja, på två sätt:
+
+Slutspelet väger tyngre — går från 31% till 36% av snittet, vilket gör att de sena rundorna faktiskt spelar roll även om någon haft ett starkt gruppspel.
+Exponentiell känsla — 12 → 25 → 50 → 100 dubbleras ungefär för varje runda, vilket känns naturligt och belönar den som prickar rätt i de avgörande matcherna mer.
+Enda nackdelen är att det fortfarande inte löser problemet om någon plockar massa skräll i gruppspelet — men det är svårt att komma runt utan att göra gruppspelet mindre värt. Vill du att jag uppdaterar koden med de nya värdena?
+
+Höj till 12, 25, 50 och 100 - och ändra så man senare tippar rätt finalister efter rätt lag i semifinal på slutspelssidan. Finalister ska ge 150 poäng per rätt finalist. 250 poäng ska ges för rätt världsmästare och tipset om silvermedaljör ska skrotas (eftersom man redan tippat finalister).  Skriv sen en tabell för fördelningen som du gjorde innan i den här chatten.
+
+12:58
+Låt mig räkna ut fördelningen först, sedan uppdaterar jag koden.
+
+SLUTSPEL (uppdaterat)
+
+32 lag i 16-del: 32 × 12 = 384p
+16 lag i åttondelsfinal: 16 × 25 = 400p
+8 lag i kvartsfinal: 8 × 50 = 400p
+4 lag i semifinal: 4 × 100 = 400p
+2 finalister: 2 × 150 = 300p
+Totalt slutspel: 1 884p
+BONUS (uppdaterat — silver borttaget, vinnare höjd)
+
+VM-vinnare: 250p (höjt från 100p)
+Brons: 50p
+Skyttekung: 80p
+Assistkung: 80p
+Golden Ball: 80p
+Flest gula kort: 40p
+Sveriges målgörare: 40p
+Totalt bonus: 620p
+Del	Lågt	Snitt	Högt
+Gruppspel	1 400p — 37%	2 300p — 50%	5 000p — 70%
+Slutspel	1 884p — 50%	1 884p — 41%	1 884p — 26%
+Bonus	620p — 16%	620p — 13%	620p — 9%
+Totalt	~3 900p	~4 800p	~7 500p
+Slutspelet är nu den tyngsta delen vid snitt och lågt gruppspel — känns balanserat. Nu uppdaterar jag koden!
+
+
+Ran 3 commands
+Ran 3 commands
+Alla 5 kontroller gröna!
+
+
+Presented file
+Presented file
+Klart! Här är vad som ändrats:
+
+Poäng uppdaterade:
+
+Åttondelsfinal: 24 → 25p
+Kvartsfinal: 36 → 50p
+Semifinal: 60 → 100p
+Finalister: ny runda → 150p per lag
+VM-vinnare: 100 → 250p
+Silvermedaljör: borttagen
+Slutspelssidan har nu en fjärde lista — efter att du valt dina 4 semifinalister väljer du 2 finalister bland dem. Kaskaden fungerar som tidigare: du kan bara välja bland lag du tippat gick vidare i föregående runda.
+
+Ladda upp på GitHub som vanligt!
+
+
+Vm tips 2026
+Code · HTML 
+Ta bort "vilket land är tvåa". och håll lite utrymme mellan lådorna i bonustipsen, dedär blev lite fulare.
+
+13:05
+
+Ran 4 commands, read a file
+Ran 4 commands, read a file
+Klart! "Vilket land är tvåa?" är borttaget helt och bonuslådorna har nu mer luft mellan sig. Ladda upp på GitHub!
+
+
+Vm tips 2026
+Code · HTML 
+Ta bort obs-rutan under finalister
+
+13:08
+
+Ran a command, read a file
+Ran a command, read a file
+
+Remove obs note under bracket page
+
+Script
+
+Presented file
+Done
+Borttagen! Ladda upp på GitHub.
+
+
+Vm tips 2026
+Code · HTML 
+Du, mitt sparade tips jag gjorde innan poängändringarna, har det ställt om sig för dom nya reglerna?
+
+13:11
+Nej, det sparade tipset har inte ställt om sig automatiskt. Poängen i databasen beräknas inte om — Firebase lagrar bara dina val (vilka lag du tippat, matchresultat osv), inte poängsumman.
+
+Poängen räknas ut live i koden varje gång sidan laddas, utifrån de regler som finns i HTML-filen just nu. Så när du öppnar ditt gamla sparade tips i den nya versionen av sidan räknas allt om automatiskt med de nya reglerna — 25/50/100/150/250p osv.
+
+Du behöver inte göra något, det sköter sig självt när du laddar upp den nya koden på GitHub.
+
+Tror du jag kan skicka ut detta?Finns det nåt du funderat öcer som jag borde göra om/tänka över
+
+13:12
+Det är ett riktigt bra tips och tekniskt sett redo att skickas ut! Men här är några saker jag skulle tänka på innan:
+
+Måste fixas
+
+Testa hela flödet själv först — fyll i ett komplett tips, skicka in, öppna admin och verifiera att det syns och att länken fungerar. Helst från en annan enhet (mobil).
+Firestore-reglerna — om du inte uppdaterat dem från "test mode" slutar de fungera om 30 dagar. Klistra in firestore.rules-filen jag skapade nu innan du skickar ut.
+Värt att tänka på
+
+Deadline — VM startar 11 juni 2026. Bestäm ett datum då tipset stänger och kommunicera det tydligt, annars kan folk ändra sitt tips hela vägen.
+Två Björnar — om två personer har samma namn skriver de över varandras tips. Påminn folk om att skriva för- och efternamn.
+Sveriges målgörare — Sverige är inte garanterade att gå vidare från gruppen. Fundera på om frågan ska vara "om Sverige går vidare" eller om du stryker den om de åker ut.
+Anmälningsavgift — om ni spelar om pengar, se till att du fått betalt innan folk skickar in tipset, annars kan det bli jobbigt i efterhand.
+Kosmetiskt
+
+Informationsrutan längst upp på slutspelssidan ("Välj vilka lag...") refererar fortfarande till det gamla träd-systemet, kan vara värd att uppdatera.
+Vad tänker du?
+
+
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+Vm tips 2026 · HTML
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -85,7 +788,7 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
 .ko-item.disabled{opacity:.35;cursor:not-allowed;pointer-events:none;}
 .ko-grp{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.5px;color:var(--green-dark);min-width:22px;}
 .ko-name{font-size:.8rem;font-weight:500;flex:1;line-height:1.2;}
-.bog{display:grid;gap:.85rem;}
+.bog{display:grid;gap:1.25rem;}
 .boc{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:1rem 1.25rem;}
 .boc label{display:block;font-size:.76rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.2rem;}
 .bopl{font-family:'Bebas Neue',sans-serif;font-size:.84rem;color:var(--gold);letter-spacing:.5px;margin-bottom:.45rem;}
@@ -167,10 +870,12 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
     <div class="rr"><span>Gruppspelsmatch — rätt utfall</span><span class="rp">Odds-p</span></div>
     <div class="rr"><span>Dubbelchans (1 per grupp)</span><span class="rp">× 2</span></div>
     <div class="rr"><span>Lag i 16-delsfinal</span><span class="rp">12 P</span></div>
-    <div class="rr"><span>Lag i åttondelsfinal</span><span class="rp">24 P</span></div>
-    <div class="rr"><span>Lag i kvartsfinal</span><span class="rp">36 P</span></div>
-    <div class="rr"><span>Lag i semifinal</span><span class="rp">60 P</span></div>
-    <div class="rr"><span>Brons / Silver / VM-vinnare</span><span class="rp">50 / 80 / 100 P</span></div>
+    <div class="rr"><span>Lag i åttondelsfinal</span><span class="rp">25 P</span></div>
+    <div class="rr"><span>Lag i kvartsfinal</span><span class="rp">50 P</span></div>
+    <div class="rr"><span>Lag i semifinal</span><span class="rp">100 P</span></div>
+    <div class="rr"><span>Finalister</span><span class="rp">150 P var.</span></div>
+    <div class="rr"><span>VM-vinnare</span><span class="rp">250 P</span></div>
+    <div class="rr"><span>Bronsmedaljör</span><span class="rp">50 P</span></div>
     <div class="rr"><span>Skyttekung / Assistkung / Golden Ball</span><span class="rp">80 P var.</span></div>
     <div class="rr"><span>Lag med flest gula kort</span><span class="rp">40 P</span></div>
     <div class="rr"><span>Sveriges meste målgörare</span><span class="rp">40 P</span></div>
@@ -203,7 +908,7 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
  
 <!-- KNOCKOUT -->
 <div class="page" id="page-knockout">
-  <div class="bi">Välj vilka lag som går vidare i varje runda. Varje runda filtreras automatiskt — du kan bara välja bland lag du tippat gick vidare i föregående runda. Varje lag märks med sin grupp.</div>
+  <div class="bi">Välj vilka lag som går vidare i varje runda. Varje runda filtreras automatiskt. Välj till sist de 2 finalisterna bland dina semifinalister — rätt finalist ger 150p och rätt VM-vinnare tippas under Bonus (250p).</div>
   <div id="koContent"></div>
   <div style="background:#fff;border-radius:12px;padding:.85rem 1.25rem;box-shadow:var(--shadow);font-size:.83rem;color:var(--muted);">
     <strong style="color:var(--text)">Obs:</strong> Finalen tippas inte — inga poäng för lag i final. Tippa VM-vinnaren under <strong>Bonus</strong> istället.
@@ -214,8 +919,7 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
 <div class="page" id="page-bonus">
   <div class="st">Bonusfrågor</div>
   <div class="bog">
-    <div class="boc"><label>VM-vinnare</label><div class="bopl">100 poäng</div><input class="boi" id="bWinner" type="text" placeholder="Vilket land vinner VM?" oninput="debounceSave()"></div>
-    <div class="boc"><label>Silvermedaljör</label><div class="bopl">80 poäng</div><input class="boi" id="bSilver" type="text" placeholder="Vilket land är tvåa?" oninput="debounceSave()"></div>
+    <div class="boc"><label>VM-vinnare</label><div class="bopl">250 poäng</div><input class="boi" id="bWinner" type="text" placeholder="t.ex. Brasilien" oninput="debounceSave()"></div>
     <div class="boc"><label>Bronsmedaljör</label><div class="bopl">50 poäng</div><input class="boi" id="bBronze" type="text" placeholder="Vilket land är trea?" oninput="debounceSave()"></div>
     <div class="boc"><label>Skyttekung</label><div class="bopl">80 poäng</div><input class="boi" id="bScorer" type="text" placeholder="Vem gör flest mål?" oninput="debounceSave()"></div>
     <div class="boc"><label>Assistkung</label><div class="bopl">80 poäng</div><input class="boi" id="bAssist" type="text" placeholder="Vem gör flest assist?" oninput="debounceSave()"></div>
@@ -353,7 +1057,7 @@ function gv(id){return document.getElementById(id)?.value.trim()||'';}
 function sv(id,v){const el=document.getElementById(id);if(el)el.value=v||'';}
  
 function getBonus(){
-  return {winner:gv('bWinner'),silver:gv('bSilver'),bronze:gv('bBronze'),
+  return {winner:gv('bWinner'),bronze:gv('bBronze'),
           scorer:gv('bScorer'),assist:gv('bAssist'),ball:gv('bBall'),
           yellow:gv('bYellow'),sweden:gv('bSweden')};
 }
@@ -397,8 +1101,7 @@ window.addEventListener('load', () => {
   S = d;
   sv('pName', d.name); sv('pEmail', d.email||'');
   if(d.bonus){
-    sv('bWinner',d.bonus.winner); sv('bSilver',d.bonus.silver);
-    sv('bBronze',d.bonus.bronze); sv('bScorer',d.bonus.scorer);
+    sv('bWinner',d.bonus.winner); sv('bBronze',d.bonus.bronze); sv('bScorer',d.bonus.scorer);
     sv('bAssist',d.bonus.assist); sv('bBall',d.bonus.ball);
     sv('bYellow',d.bonus.yellow); sv('bSweden',d.bonus.sweden);
   }
@@ -578,9 +1281,10 @@ function goToKnockout(){
 function buildKnockout(){
   const container=document.getElementById('koContent'); container.innerHTML='';
   const roundDef=[
-    {key:'r16',title:'16-delsfinal → Åttondelsfinal',sub:'Välj 16 lag som tar sig till åttondelsfinalen',pool:()=>getR16Teams(),max:16,pts:24},
-    {key:'r8', title:'Åttondelsfinal → Kvartsfinal', sub:'Välj 8 lag som tar sig till kvartsfinal',     pool:()=>S.ko.r16.map(t=>teamWithGroup(t)),max:8,pts:36},
-    {key:'qf', title:'Kvartsfinal → Semifinal',      sub:'Välj 4 lag som tar sig till semifinal',       pool:()=>S.ko.r8.map(t=>teamWithGroup(t)), max:4,pts:60},
+    {key:'r16',title:'16-delsfinal → Åttondelsfinal',sub:'Välj 16 lag som tar sig till åttondelsfinalen',pool:()=>getR16Teams(),max:16,pts:25},
+    {key:'r8', title:'Åttondelsfinal → Kvartsfinal', sub:'Välj 8 lag som tar sig till kvartsfinal',     pool:()=>S.ko.r16.map(t=>teamWithGroup(t)),max:8,pts:50},
+    {key:'qf', title:'Kvartsfinal → Semifinal',      sub:'Välj 4 lag som tar sig till semifinal',       pool:()=>S.ko.r8.map(t=>teamWithGroup(t)), max:4,pts:100},
+    {key:'sf', title:'Finalister',                   sub:'Välj de 2 lag som går till finalen',          pool:()=>S.ko.qf.map(t=>teamWithGroup(t)), max:2,pts:150},
   ];
   roundDef.forEach(round=>{
     const pool=round.pool(), sel=S.ko[round.key];
@@ -637,10 +1341,10 @@ function updateScore(){
     });
   });
   score+=24*12; S.thirds.forEach(()=>score+=12);
-  const rp={r16:24,r8:36,qf:60,sf:0};
+  const rp={r16:25,r8:50,qf:100,sf:150,final:0};
   Object.entries(S.ko).forEach(([k,picks])=>picks.forEach(()=>score+=rp[k]||0));
-  const bp=[100,80,50,80,80,80,40,40];
-  ['bWinner','bSilver','bBronze','bScorer','bAssist','bBall','bYellow','bSweden'].forEach((id,i)=>{if(gv(id))score+=bp[i];});
+  const bp=[250,50,80,80,80,40,40];
+  ['bWinner','bBronze','bScorer','bAssist','bBall','bYellow','bSweden'].forEach((id,i)=>{if(gv(id))score+=bp[i];});
   document.getElementById('hsc').textContent=score.toLocaleString('sv')+' P';
   return score;
 }
@@ -666,12 +1370,12 @@ function buildSummary(){
   kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">24 gruppettor &amp; -tvåor i 16-del</span><span class="smp">${base}</span></div>`;
   S.thirds.forEach(g=>{total+=12;kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${getT(g)} (Grupp ${g}) i 16-del</span><span class="smp">12</span></div>`;});
   const koLabels={r16:'till åttondelsfinal',r8:'till kvartsfinal',qf:'till semifinal'};
-  const koP={r16:24,r8:36,qf:60};
-  ['r16','r8','qf'].forEach(k=>{S.ko[k].forEach(t=>{total+=koP[k];kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${t} ${koLabels[k]}</span><span class="smp">${koP[k]}</span></div>`;});});
+  const koP={r16:25,r8:50,qf:100,sf:150};
+  ['r16','r8','qf','sf'].forEach(k=>{S.ko[k].forEach(t=>{total+=koP[k];kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${t} ${koLabels[k]}</span><span class="smp">${koP[k]}</span></div>`;});});
   document.getElementById('smKO').innerHTML=kh;
  
   let bh='<div class="smsh"><span>Bonus</span><span>Poäng</span></div>';
-  [{id:'bWinner',l:'VM-vinnare',p:100},{id:'bSilver',l:'Silver',p:80},{id:'bBronze',l:'Brons',p:50},
+  [{id:'bWinner',l:'VM-vinnare',p:250},{id:'bBronze',l:'Brons',p:50},
    {id:'bScorer',l:'Skyttekung',p:80},{id:'bAssist',l:'Assistkung',p:80},{id:'bBall',l:'Golden Ball',p:80},
    {id:'bYellow',l:'Flest gula kort',p:40},{id:'bSweden',l:'Sveriges meste målgörare',p:40}].forEach(f=>{
     const v=gv(f.id); if(!v) return; total+=f.p;
@@ -771,3 +1475,5 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 </script>
 </body>
 </html>
+ 
+
