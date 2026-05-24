@@ -205,9 +205,10 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
  
 <!-- KNOCKOUT -->
 <div class="page" id="page-knockout">
-  <div class="bi">Välj vilka lag som går vidare i varje runda. Varje runda filtreras automatiskt.</div>
+  <div class="bi">Välj vilka lag som går vidare i varje runda. Varje runda filtreras automatiskt. Välj till sist de 2 finalisterna bland dina semifinalister — rätt finalist ger 150p och rätt VM-vinnare tippas under Bonus (250p).</div>
   <div id="koContent"></div>
   <div style="background:#fff;border-radius:12px;padding:.85rem 1.25rem;box-shadow:var(--shadow);font-size:.83rem;color:var(--muted);">
+    <strong style="color:var(--text)">Obs:</strong> Finalen tippas inte — inga poäng för lag i final. Tippa VM-vinnaren under <strong>Bonus</strong> istället.
   </div>
 </div>
  
@@ -266,12 +267,12 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
  
 const firebaseConfig = {
-  apiKey: "AIzaSyDaJFMAZvddUvu3DU2WZHf4fSryT_p0tgc",
-  authDomain: "axels-vm-tips-2026.firebaseapp.com",
-  projectId: "axels-vm-tips-2026",
-  storageBucket: "axels-vm-tips-2026.firebasestorage.app",
-  messagingSenderId: "387957712829",
-  appId: "1:387957712829:web:0a2d8a8736684c19f014d4"
+  apiKey: "AIzaSyAfKm6Qf9igwtKd4tgcJqsFbwIJMU_7QTk",
+  authDomain: "vm-tipset-b6635.firebaseapp.com",
+  projectId: "vm-tipset-b6635",
+  storageBucket: "vm-tipset-b6635.firebasestorage.app",
+  messagingSenderId: "269014322385",
+  appId: "1:269014322385:web:09d8247bb801ba847149f0"
 };
  
 const app = initializeApp(firebaseConfig);
@@ -771,3 +772,4 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 </script>
 </body>
 </html>
+ 
