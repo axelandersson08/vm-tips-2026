@@ -295,6 +295,12 @@ window.fbDeleteTip = async function(key) {
   await remove(ref(db, 'tips/' + key));
 };
  
+window.fbGetTip = async function(key) {
+  const snap = await get(child(ref(db), 'tips/' + key));
+  if (!snap.exists()) return null;
+  return snap.val();
+};
+ 
 window.fbLoaded = true;
 document.dispatchEvent(new Event('fbReady'));
 </script>
@@ -352,6 +358,9 @@ const GROUPS=[
 ];
  
 const ADMIN_PW = 'axel2026';
+const DEADLINE = new Date('2026-06-11T21:00:00+02:00'); // VM-start
+function isLocked() { return new Date() >= DEADLINE; }
+function lockMsg() { return 'Tipset är låst sedan den 11 juni 2026 kl. 21:00 — turneringen har börjat!'; }
 let S = {name:'',email:'',groups:{},thirds:[],ko:{r16:[],r8:[],qf:[],sf:[]}};
 let dblPending = null;
 let saveTimer = null;
@@ -391,12 +400,20 @@ async function saveToFirebase(){
 function debounceSave(){
   updateScore();
   if(!S.name) return;
+  if(isLocked()) return; // no saves after deadline
   clearTimeout(saveTimer);
   saveTimer = setTimeout(saveToFirebase, 1500);
 }
  
 // ---- URL LOAD ----
 window.addEventListener('load', () => {
+  // Show lock banner if past deadline
+  if(isLocked()){
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:#c8102e;color:#fff;text-align:center;padding:.6rem 1rem;font-size:.82rem;font-weight:500;position:sticky;top:54px;z-index:98;';
+    banner.textContent = '🔒 Tipset är låst — turneringen har börjat!';
+    document.querySelector('.tab-bar') ? document.querySelector('.tab-bar').after(banner) : document.body.prepend(banner);
+  }
   const p = new URLSearchParams(location.search).get('tips');
   if(!p) return;
   const d = decState(p);
@@ -431,10 +448,85 @@ function ensureState(){
   ['r16','r8','qf','sf'].forEach(k=>{if(!Array.isArray(S.ko[k]))S.ko[k]=[];});
 }
  
-function startTipping(){
+async function startTipping(){
   const n = gv('pName');
   if(!n){toast('Ange ditt namn först!');return;}
-  S.name = n; S.email = gv('pEmail');
+ 
+  // After deadline: load tip in read-only mode
+  if(isLocked()){
+    const email = gv('pEmail');
+    const key = n.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+    if(window.fbGetTip){
+      toast('Hämtar ditt tips...');
+      try {
+        const existing = await window.fbGetTip(key);
+        if(existing && existing.name){
+          S = existing; S.name = existing.name; S.email = existing.email||email;
+          ensureState();
+          if(existing.bonus){
+            sv('bWinner',existing.bonus.winner||''); sv('bBronze',existing.bonus.bronze||'');
+            sv('bScorer',existing.bonus.scorer||''); sv('bAssist',existing.bonus.assist||'');
+            sv('bBall',existing.bonus.ball||''); sv('bYellow',existing.bonus.yellow||'');
+            sv('bSweden',existing.bonus.sweden||'');
+          }
+          document.getElementById('page-start').classList.remove('active');
+          document.getElementById('tabBar').style.display='flex';
+          document.getElementById('hsc').style.display='block';
+          unlockTab('thirds'); unlockTab('knockout');
+          buildGroups(); showPage('groups'); updateScore();
+          setReadOnly(true);
+          toast('Tipset är låst — du kan se men inte ändra.');
+        } else {
+          toast('Inget sparat tips hittades för det namnet.');
+        }
+      } catch(e){ toast('Kunde inte hämta tips.'); }
+    } else {
+      toast(lockMsg());
+    }
+    return;
+  }
+ 
+  const email = gv('pEmail');
+  const key = n.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+ 
+  // Try to load existing tip from Firebase
+  if(window.fbGetTip){
+    try {
+      toast('Söker efter sparat tips...');
+      const existing = await window.fbGetTip(key);
+      if(existing && existing.name){
+        S = existing;
+        S.name = existing.name;
+        S.email = existing.email || email;
+        ensureState();
+        // Load bonus fields
+        if(existing.bonus){
+          sv('bWinner', existing.bonus.winner||'');
+          sv('bBronze', existing.bonus.bronze||'');
+          sv('bScorer', existing.bonus.scorer||'');
+          sv('bAssist', existing.bonus.assist||'');
+          sv('bBall', existing.bonus.ball||'');
+          sv('bYellow', existing.bonus.yellow||'');
+          sv('bSweden', existing.bonus.sweden||'');
+        }
+        document.getElementById('page-start').classList.remove('active');
+        document.getElementById('tabBar').style.display = 'flex';
+        document.getElementById('hsc').style.display = 'block';
+        if(S.thirds.length===8){unlockTab('thirds');unlockTab('knockout');}
+        else if(Object.values(S.groups).some(g=>g.picks.some(p=>p))) unlockTab('thirds');
+        buildGroups();
+        showPage(S.thirds.length===8?'knockout':'groups');
+        updateScore();
+        toast('Sparat tips hittades och laddades!');
+        return;
+      }
+    } catch(e) {
+      console.warn('Could not fetch existing tip:', e);
+    }
+  }
+ 
+  // No existing tip — start fresh
+  S.name = n; S.email = email;
   ensureState();
   document.getElementById('page-start').classList.remove('active');
   document.getElementById('tabBar').style.display = 'flex';
@@ -450,6 +542,7 @@ function showPage(name){
   if(name==='knockout') buildKnockout();
 }
 function navTab(name,el){
+  if(name==='admin'){showPage('admin');return;} // admin always accessible
   if(el.classList.contains('locked')){toast('Fyll i gruppspelet och välj grupp-3:or först!');return;}
   showPage(name);
 }
@@ -699,6 +792,7 @@ async function copyLink(){
   }catch(e){toast('Kopiera URL:en manuellt från adressfältet');}
 }
 async function submitTips(){
+  if(isLocked()){toast(lockMsg());return;}
   await saveToFirebase();
   const url=getShareURL();
   const sub=encodeURIComponent('VM-tips 2026 — '+S.name);
@@ -776,6 +870,20 @@ async function deleteTip(key, btn){
   }
 }
  
+function setReadOnly(on){
+  if(!on) return;
+  // Disable all interactive elements except admin tab
+  document.querySelectorAll('.ob,.dbl,.bn,.bp:not(#adminSubmit),.bo,.pkb,.move-btn,.boi,.ko-item,.tc').forEach(el=>{
+    el.style.pointerEvents='none';
+    el.style.opacity='0.7';
+  });
+  // Show read-only banner in each page
+  const msg = document.createElement('div');
+  msg.style.cssText='background:#f0f0f0;border:1.5px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-size:.83rem;color:var(--muted);margin-bottom:1rem;text-align:center;';
+  msg.innerHTML='👁 <strong>Visningsläge</strong> — tipset är låst sedan 11 juni kl. 21:00. Du kan se men inte ändra.';
+  document.getElementById('page-groups').prepend(msg.cloneNode(true));
+}
+ 
 function encTip(tip){
   try{return btoa(unescape(encodeURIComponent(JSON.stringify(tip))));}catch(e){return '';}
 }
@@ -795,9 +903,11 @@ window.copyLink=copyLink;
 window.submitTips=submitTips;
 window.loadAdmin=loadAdmin;
 window.deleteTip=deleteTip;
+window.setReadOnly=setReadOnly;
 window.loadSaved=loadSaved;
  
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 </script>
 </body>
 </html>
+ 
