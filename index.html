@@ -290,6 +290,11 @@ window.fbLoadAllTips = async function() {
   return Object.values(snap.val());
 };
  
+window.fbDeleteTip = async function(key) {
+  const { ref, remove } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await remove(ref(db, 'tips/' + key));
+};
+ 
 window.fbLoaded = true;
 document.dispatchEvent(new Event('fbReady'));
 </script>
@@ -731,6 +736,7 @@ async function loadAdmin(){
     const card = document.createElement('div');
     card.className = 'admin-card';
     const ts = tip.ts ? new Date(tip.ts).toLocaleString('sv') : 'Okänt datum';
+    const key = (tip.name||'anon').toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
     const url = location.href.split('?')[0]+'?tips='+encTip(tip);
     const b = tip.bonus||{};
     const bonusLines = [
@@ -745,6 +751,7 @@ async function loadAdmin(){
       + '<span class="admin-meta">'+(tip.email||'')+'</span>'
       + '<span class="admin-meta">'+ts+'</span>'
       + '<button class="admin-tog" onclick="this.closest(\'.admin-card\').querySelector(\'.admin-body\').classList.toggle(\'open\')">Visa tips ▾</button>'
+      + '<button class="admin-tog" style="background:#c8102e;border-color:#c8102e;margin-left:4px" onclick="deleteTip(\''+key+'\',this)">🗑 Radera</button>'
       + '</div>'
       + '<div class="admin-body">'
       + '<a class="admin-link" href="'+url+'" target="_blank">↗ Öppna hela tipset i ny flik</a>'
@@ -755,6 +762,18 @@ async function loadAdmin(){
       + '</div>';
     container.appendChild(card);
   });
+}
+ 
+async function deleteTip(key, btn){
+  if(!confirm('Radera tips för "'+key+'"?')) return;
+  btn.textContent = '...';
+  try {
+    await window.fbDeleteTip(key);
+    btn.closest('.admin-card').remove();
+    toast('Tips raderat!');
+  } catch(e) {
+    toast('Fel vid radering: '+e.message);
+  }
 }
  
 function encTip(tip){
@@ -775,10 +794,10 @@ window.moveTeam=moveTeam;
 window.copyLink=copyLink;
 window.submitTips=submitTips;
 window.loadAdmin=loadAdmin;
+window.deleteTip=deleteTip;
 window.loadSaved=loadSaved;
  
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 </script>
 </body>
 </html>
- 
