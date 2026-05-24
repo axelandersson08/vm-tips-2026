@@ -261,10 +261,10 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
 </main>
 <div class="toast" id="toast"></div>
  
-<!-- Firebase -->
+<!-- Firebase Realtime Database -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
  
 const firebaseConfig = {
   apiKey: "AIzaSyAfKm6Qf9igwtKd4tgcJqsFbwIJMU_7QTk",
@@ -272,21 +272,22 @@ const firebaseConfig = {
   projectId: "vm-tipset-b6635",
   storageBucket: "vm-tipset-b6635.firebasestorage.app",
   messagingSenderId: "269014322385",
-  appId: "1:269014322385:web:09d8247bb801ba847149f0"
+  appId: "1:269014322385:web:09d8247bb801ba847149f0",
+  databaseURL: "https://vm-tipset-b6635-default-rtdb.europe-west1.firebasedatabase.app"
 };
  
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getDatabase(app);
  
-// Expose Firebase functions globally for the rest of the script
 window.fbSaveTips = async function(data) {
-  const key = data.name.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
-  await setDoc(doc(db, 'tips', key), { ...data, updatedAt: serverTimestamp() });
+  const key = (data.name||'anon').toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+  await set(ref(db, 'tips/' + key), { ...data, ts: Date.now() });
 };
  
 window.fbLoadAllTips = async function() {
-  const snap = await getDocs(collection(db, 'tips'));
-  return snap.docs.map(d => d.data());
+  const snap = await get(child(ref(db), 'tips'));
+  if (!snap.exists()) return [];
+  return Object.values(snap.val());
 };
  
 window.fbLoaded = true;
@@ -772,4 +773,3 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 </script>
 </body>
 </html>
- 
