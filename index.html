@@ -705,48 +705,56 @@ async function submitTips(){
  
 // ---- ADMIN ----
 async function loadAdmin(){
-  if(document.getElementById('adminPw').value!==ADMIN_PW){toast('Fel lösenord!');return;}
-  if(!window.fbLoadAllTips){toast('Firebase laddar, försök igen om ett ögonblick.');return;}
-  const container=document.getElementById('adminContent');
-  container.innerHTML='<div style="color:var(--muted);font-size:.85rem;padding:1rem 0">Laddar från Firebase...</div>';
+  const pw = document.getElementById('adminPw').value;
+  if(pw !== ADMIN_PW){toast('Fel lösenord!');return;}
+  const container = document.getElementById('adminContent');
+  container.innerHTML = '<div style="color:var(--muted);font-size:.85rem;padding:1rem 0">Laddar...</div>';
+  
+  let all;
   try {
-    const all = await window.fbLoadAllTips();
-    if(!all.length){container.innerHTML='<div class="card" style="color:var(--muted);font-size:.87rem">Inga inlämnade tips ännu.</div>';return;}
-    all.sort((a,b)=>(b.ts||0)-(a.ts||0));
-    container.innerHTML='<div style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">'+all.length+' tips inlämnade</div>';
-    all.forEach(tip=>{
-      const card=document.createElement('div'); card.className='admin-card';
-      const ts=tip.ts?new Date(tip.ts).toLocaleString('sv'):'Okänt datum';
-      const url=location.href.split('?')[0]+'?tips='+encTip(tip);
-      // Build bonus summary
-      const b=tip.bonus||{};
-      const bonusLines=[
-        b.winner&&`VM-vinnare: ${b.winner}`,
-        b.scorer&&`Skyttekung: ${b.scorer}`,
-        b.topScorer&&`Skyttekung: ${b.topScorer}`,
-        b.yellow&&`Flest gula kort: ${b.yellow}`,
-        b.sweden&&`Sver. målgörare: ${b.sweden}`,
-      ].filter(Boolean).join(' &nbsp;·&nbsp; ');
-      card.innerHTML=`
-        <div class="admin-hdr">
-          <span class="admin-nm">${tip.name||'Okänd'}</span>
-          <span class="admin-meta">${tip.email||''}</span>
-          <span class="admin-meta">${ts}</span>
-          <button class="admin-tog" onclick="this.closest('.admin-card').querySelector('.admin-body').classList.toggle('open')">Visa tips ▾</button>
-        </div>
-        <div class="admin-body">
-          <a class="admin-link" href="${url}" target="_blank">↗ Öppna hela tipset i ny flik</a>
-          ${bonusLines?`<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">${bonusLines}</div>`:''}
-          <div class="admin-detail-row"><span style="color:var(--muted)">Lag i åttondelsfinal (${(tip.ko?.r16||[]).length}/16)</span><span style="font-size:.76rem">${(tip.ko?.r16||[]).slice(0,6).join(', ')}${(tip.ko?.r16||[]).length>6?'...':''}</span></div>
-          <div class="admin-detail-row"><span style="color:var(--muted)">Lag i kvartsfinal (${(tip.ko?.r8||[]).length}/8)</span><span style="font-size:.76rem">${(tip.ko?.r8||[]).join(', ')||'—'}</span></div>
-          <div class="admin-detail-row"><span style="color:var(--muted)">Lag i semifinal (${(tip.ko?.qf||[]).length}/4)</span><span style="font-size:.76rem">${(tip.ko?.qf||[]).join(', ')||'—'}</span></div>
-        </div>`;
-      container.appendChild(card);
-    });
+    all = await window.fbLoadAllTips();
   } catch(e) {
-    container.innerHTML='<div class="card" style="color:#c8102e;font-size:.87rem">Fel vid laddning: '+e.message+'</div>';
-    console.error(e);
+    container.innerHTML = '<div class="card" style="color:#c8102e;font-size:.87rem">Fel vid laddning: '+e.message+'</div>';
+    console.error('loadAdmin error:', e);
+    return;
   }
+ 
+  if(!all || !all.length){
+    container.innerHTML = '<div class="card" style="color:var(--muted);font-size:.87rem">Inga inlämnade tips ännu.</div>';
+    return;
+  }
+ 
+  all.sort((a,b)=>(b.ts||0)-(a.ts||0));
+  container.innerHTML = '<div style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">'+all.length+' tips inlämnade</div>';
+  
+  all.forEach(tip=>{
+    const card = document.createElement('div');
+    card.className = 'admin-card';
+    const ts = tip.ts ? new Date(tip.ts).toLocaleString('sv') : 'Okänt datum';
+    const url = location.href.split('?')[0]+'?tips='+encTip(tip);
+    const b = tip.bonus||{};
+    const bonusLines = [
+      b.winner && 'VM-vinnare: '+b.winner,
+      b.scorer && 'Skyttekung: '+b.scorer,
+      b.yellow && 'Flest gula kort: '+b.yellow,
+      b.sweden && 'Sver. målgörare: '+b.sweden,
+    ].filter(Boolean).join(' · ');
+    
+    card.innerHTML = '<div class="admin-hdr">'
+      + '<span class="admin-nm">'+(tip.name||'Okänd')+'</span>'
+      + '<span class="admin-meta">'+(tip.email||'')+'</span>'
+      + '<span class="admin-meta">'+ts+'</span>'
+      + '<button class="admin-tog" onclick="this.closest(\'.admin-card\').querySelector(\'.admin-body\').classList.toggle(\'open\')">Visa tips ▾</button>'
+      + '</div>'
+      + '<div class="admin-body">'
+      + '<a class="admin-link" href="'+url+'" target="_blank">↗ Öppna hela tipset i ny flik</a>'
+      + (bonusLines ? '<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">'+bonusLines+'</div>' : '')
+      + '<div class="admin-detail-row"><span style="color:var(--muted)">Åttondelsfinal ('+((tip.ko&&tip.ko.r16)||[]).length+'/16)</span><span style="font-size:.76rem">'+((tip.ko&&tip.ko.r16)||[]).slice(0,6).join(', ')+(((tip.ko&&tip.ko.r16)||[]).length>6?'...':'')+'</span></div>'
+      + '<div class="admin-detail-row"><span style="color:var(--muted)">Kvartsfinal ('+((tip.ko&&tip.ko.r8)||[]).length+'/8)</span><span style="font-size:.76rem">'+((tip.ko&&tip.ko.r8)||[]).join(', ')+'</span></div>'
+      + '<div class="admin-detail-row"><span style="color:var(--muted)">Semifinal ('+((tip.ko&&tip.ko.qf)||[]).length+'/4)</span><span style="font-size:.76rem">'+((tip.ko&&tip.ko.qf)||[]).join(', ')+'</span></div>'
+      + '</div>';
+    container.appendChild(card);
+  });
 }
  
 function encTip(tip){
@@ -773,3 +781,4 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 </script>
 </body>
 </html>
+ 
