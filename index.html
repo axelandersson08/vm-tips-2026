@@ -434,6 +434,7 @@ function loadSaved(){
   document.getElementById('page-start').classList.remove('active');
   document.getElementById('tabBar').style.display = 'flex';
   document.getElementById('hsc').style.display = 'block';
+  if(!Array.isArray(S.thirds)) S.thirds=[];
   if(S.thirds.length===8){unlockTab('thirds');unlockTab('knockout');}
   else unlockTab('thirds');
   buildGroups(); showPage(S.thirds.length===8?'knockout':'groups'); updateScore();
@@ -575,7 +576,7 @@ function getR16Teams(){
     teams.push({team:getW(g.name),group:g.name,pos:'1'});
     teams.push({team:getR(g.name),group:g.name,pos:'2'});
   });
-  S.thirds.forEach(g=>teams.push({team:getT(g),group:g,pos:'3'}));
+  (S.thirds||[]).forEach(g=>teams.push({team:getT(g),group:g,pos:'3'}));
   return teams;
 }
  
@@ -647,6 +648,7 @@ function updateGProg(){
 // ---- THIRDS ----
 function goToThirds(){buildThirds();unlockTab('thirds');showPage('thirds');}
 function buildThirds(){
+  if(!Array.isArray(S.thirds)) S.thirds=[];
   const grid=document.getElementById('thirdGrid'); grid.innerHTML='';
   GROUPS.forEach(g=>{
     const st=computeStandings(g.name), t=st[2], sel=S.thirds.includes(g.name);
@@ -657,6 +659,7 @@ function buildThirds(){
   document.getElementById('tcNum').textContent=S.thirds.length;
 }
 function toggleThird(g){
+  if(!Array.isArray(S.thirds)) S.thirds=[];
   const idx=S.thirds.indexOf(g);
   if(idx>=0) S.thirds.splice(idx,1);
   else{if(S.thirds.length>=8){toast('Redan 8 valda!');return;}S.thirds.push(g);}
