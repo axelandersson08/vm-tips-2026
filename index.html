@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
@@ -144,9 +143,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
   <div class="tab" data-page="admin" onclick="navTab('admin',this)">Admin</div>
 </div>
 <main>
-
+ 
 <!-- START -->
-
 <div class="page active" id="page-start">
   <div class="sc">
     <h1>Axels Stora<br>VM-Tips 2026</h1>
@@ -181,9 +179,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
   </div>
   <button class="btn bp" onclick="startTipping()">Starta tipset →</button>
 </div>
-
+ 
 <!-- GROUPS -->
-
 <div class="page" id="page-groups">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem">
     <div class="st" style="margin:0;flex:1">Gruppspel</div>
@@ -192,9 +189,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
   <div class="gg" id="groupGrid"></div>
   <div class="snav"><button class="bn" onclick="goToThirds()">Välj grupp-3:or →</button></div>
 </div>
-
+ 
 <!-- THIRDS -->
-
 <div class="page" id="page-thirds">
   <div class="st">Välj 8 av 12 grupp-3:or</div>
   <div class="bi">Baserat på ditt gruppspelstips visas alla 12 tippade grupptreor. <strong>Välj de 8 lag du tror går vidare</strong> — precis som FIFA väljer bästa 8 av 12.</div>
@@ -206,9 +202,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
   <div class="tg" id="thirdGrid"></div>
   <div class="snav" style="margin-top:1.25rem"><button class="bn" onclick="goToKnockout()">Tippa slutspelet →</button></div>
 </div>
-
+ 
 <!-- KNOCKOUT -->
-
 <div class="page" id="page-knockout">
   <div class="bi">Välj vilka lag som går vidare i varje runda. Varje runda filtreras automatiskt. Välj till sist de 2 finalisterna bland dina semifinalister — rätt finalist ger 150p och rätt VM-vinnare tippas under Bonus (250p).</div>
   <div id="koContent"></div>
@@ -216,9 +211,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
     <strong style="color:var(--text)">Obs:</strong> Finalen tippas inte — inga poäng för lag i final. Tippa VM-vinnaren under <strong>Bonus</strong> istället.
   </div>
 </div>
-
+ 
 <!-- BONUS -->
-
 <div class="page" id="page-bonus">
   <div class="st">Bonusfrågor</div>
   <div class="bog">
@@ -231,9 +225,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
     <div class="boc"><label>Sveriges meste målgörare</label><div class="bopl">40 poäng</div><input class="boi" id="bSweden" type="text" placeholder="Vem gör flest mål för Sverige?" oninput="debounceSave()"></div>
   </div>
 </div>
-
+ 
 <!-- SUMMARY -->
-
 <div class="page" id="page-summary">
   <div class="smh">
     <h2>TIPS AV</h2>
@@ -254,9 +247,8 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
     Tips sparat i databasen! Länken innehåller hela ditt tips — skicka den till Axel.
   </div>
 </div>
-
+ 
 <!-- ADMIN -->
-
 <div class="page" id="page-admin">
   <div class="st">Admin — Alla inlämnade tips</div>
   <div class="card" style="display:flex;gap:.75rem;align-items:center;padding:.9rem 1.25rem">
@@ -265,12 +257,11 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
   </div>
   <div id="adminContent"></div>
 </div>
-
+ 
 </main>
 <div class="toast" id="toast"></div>
-
+ 
 <!-- Firebase Realtime Database -->
-
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
@@ -313,7 +304,7 @@ window.fbGetTip = async function(key) {
 window.fbLoaded = true;
 document.dispatchEvent(new Event('fbReady'));
 </script>
-
+ 
 <script>
 const GROUPS=[
   {name:'A',teams:['Mexiko','Sydafrika','Sydkorea','Tjeckien'],matches:[
@@ -452,20 +443,7 @@ function loadSaved(){
 function ensureState(){
   GROUPS.forEach(g=>{
     if(!S.groups[g.name]) S.groups[g.name]={picks:Array(6).fill(null),double:null,order:[...g.teams]};
-    const gs=S.groups[g.name];
-    if(!gs.order) gs.order=[...g.teams];
-    // Firebase may return picks as an object {0:'1',2:'X'} instead of array — normalize to array
-    if(!Array.isArray(gs.picks)){
-      const arr=Array(6).fill(null);
-      Object.entries(gs.picks||{}).forEach(([k,v])=>{arr[Number(k)]=v;});
-      gs.picks=arr;
-    } else {
-      // Ensure array is length 6
-      while(gs.picks.length<6) gs.picks.push(null);
-    }
-    // Firebase may return double as a string "2" instead of number 2 — normalize
-    if(gs.double !== null && gs.double !== undefined) gs.double=Number(gs.double);
-    else gs.double=null;
+    if(!S.groups[g.name].order) S.groups[g.name].order=[...g.teams];
   });
   if(!S.ko) S.ko={r16:[],r8:[],qf:[],sf:[]};
   ['r16','r8','qf','sf'].forEach(k=>{if(!Array.isArray(S.ko[k]))S.ko[k]=[];});
@@ -933,6 +911,6 @@ window.loadSaved=loadSaved;
  
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 </script>
-
 </body>
 </html>
+ 
