@@ -178,6 +178,9 @@ main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
     <div class="rr"><span>Sveriges meste målgörare</span><span class="rp">40 P</span></div>
   </div>
   <button class="btn bp" onclick="startTipping()">Starta tipset →</button>
+  <div style="text-align:center;margin-top:.75rem">
+    <button onclick="openAdminDirect()" style="background:none;border:none;color:var(--muted);font-size:.8rem;text-decoration:underline;cursor:pointer;padding:.4rem">Admin →</button>
+  </div>
 </div>
  
 <!-- GROUPS -->
@@ -892,6 +895,13 @@ function encTip(tip){
 }
  
  
+function openAdminDirect(){
+  document.getElementById('page-start').classList.remove('active');
+  document.getElementById('tabBar').style.display='flex';
+  document.getElementById('hsc').style.display='block';
+  showPage('admin');
+}
+
 // Expose to global for inline handlers
 window.startTipping=startTipping;
 window.navTab=navTab;
@@ -908,6 +918,7 @@ window.loadAdmin=loadAdmin;
 window.deleteTip=deleteTip;
 window.setReadOnly=setReadOnly;
 window.loadSaved=loadSaved;
+window.openAdminDirect=openAdminDirect;
  
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 </script>
