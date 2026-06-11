@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axels Stora VM-Tips 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#00843D;--green-dark:#005c2a;--green-light:#e6f4ec;--gold:#C9A84C;--bg:#f4f4f0;--text:#1a1a1a;--muted:#6b6b6b;--border:#e0e0e0;--shadow:0 2px 12px rgba(0,0,0,0.07);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+header{background:var(--green-dark);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.3);}
+.hi{max-width:980px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;gap:1rem;height:54px;}
+.ht{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:2px;color:var(--gold);}
+.hs{font-size:.65rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;}
+.tab-bar{background:#fff;border-bottom:1.5px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:99;}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab{padding:.65rem 1rem;font-size:.77rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;text-transform:uppercase;user-select:none;}
+.tab:hover{color:var(--green);}
+.tab.active{color:var(--green);border-bottom-color:var(--green);}
+.tab.locked{opacity:.4;cursor:not-allowed;}
+main{max-width:980px;margin:0 auto;padding:1.25rem 1.25rem 5rem;}
+.page{display:none;}.page.active{display:block;}
+.st{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:var(--green-dark);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.st::after{content:'';flex:1;height:1.5px;background:var(--border);margin-left:.5rem;}
+.sc{background:var(--green-dark);border-radius:16px;padding:2rem 1.75rem;color:#fff;margin-bottom:1.25rem;position:relative;overflow:hidden;}
+.sc::before{content:'⚽';position:absolute;right:-10px;top:-10px;font-size:7rem;opacity:.06;line-height:1;}
+.sc h1{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;letter-spacing:3px;color:var(--gold);line-height:1.05;margin-bottom:.4rem;}
+.sc p{color:rgba(255,255,255,.7);font-size:.88rem;line-height:1.6;}
+.card{background:#fff;border-radius:12px;padding:1.25rem;box-shadow:var(--shadow);margin-bottom:1.25rem;}
+.card label{display:block;font-size:.77rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.card input[type=text],.card input[type=email],.card input[type=password]{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:.75rem;}
+.card input:last-of-type{margin-bottom:0;}
+.card input:focus{border-color:var(--green);}
+.card h3{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--green-dark);margin-bottom:.8rem;}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:.42rem 0;border-bottom:1px solid var(--border);font-size:.85rem;}
+.rr:last-child{border-bottom:none;}
+.rp{font-family:'Bebas Neue',sans-serif;font-size:.92rem;color:var(--gold);letter-spacing:1px;}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.7rem 1.4rem;border-radius:8px;font-size:.9rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:transform .1s;}
+.btn:active{transform:scale(.97);}
+.bp{background:var(--green);color:#fff;width:100%;justify-content:center;font-size:.95rem;padding:.85rem;}
+.bp:hover{background:var(--green-dark);}
+.bo{background:#fff;color:var(--green-dark);border:1.5px solid var(--green-dark);flex:1;justify-content:center;}
+.bo:hover{background:var(--green-light);}
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.85rem;}
+.gc{background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden;}
+.gh{background:var(--green-dark);color:#fff;padding:.5rem .85rem;display:flex;justify-content:space-between;align-items:center;}
+.gn{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1.5px;}
+.dbl{font-size:.62rem;background:var(--gold);color:#1a1a1a;padding:2px 7px;border-radius:4px;font-weight:600;cursor:pointer;user-select:none;}
+.dbl.used{background:#3d8f5a;color:#fff;}
+.mr{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;padding:.46rem .8rem;border-bottom:1px solid var(--border);gap:.3rem;}
+.mn{font-size:.79rem;line-height:1.2;}
+.ob{padding:.2rem .4rem;border-radius:5px;border:1.5px solid var(--border);background:#fff;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;color:var(--muted);transition:all .1s;min-width:30px;text-align:center;}
+.ob:hover{border-color:var(--green);color:var(--green);}
+.ob.sel{background:var(--green);border-color:var(--green);color:#fff;}
+.ob.dbl2{background:var(--gold);border-color:var(--gold);color:#1a1a1a;font-weight:700;}
+.shdr{background:#f8f8f5;padding:.28rem .8rem;font-size:.65rem;font-weight:600;text-transform:uppercase;color:var(--muted);display:grid;grid-template-columns:1.3rem 1fr auto auto auto;gap:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.srow{padding:.24rem .8rem;font-size:.76rem;display:grid;grid-template-columns:1.3rem 1fr auto auto auto;align-items:center;gap:2px;}
+.srow.draggable{cursor:default;}
+.move-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.8rem;padding:0 2px;line-height:1;transition:color .1s;}
+.move-btn:hover{color:var(--green);}
+.move-btn:disabled{opacity:.2;cursor:default;}
+.srow.p1{background:rgba(0,132,61,.07);}
+.srow.p2{background:rgba(0,132,61,.04);}
+.srow.p3{background:rgba(201,168,76,.06);}
+.pb{width:17px;height:17px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;}
+.pb.w{background:var(--green);color:#fff;}
+.pb.r{background:#3d8f5a;color:#fff;}
+.pb.t{background:var(--gold);color:#1a1a1a;}
+.pb.f{background:var(--border);color:var(--muted);}
+.cr{text-align:right;min-width:22px;}
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.65rem;}
+.tc{background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:.72rem .95rem;display:flex;align-items:center;gap:.65rem;cursor:pointer;border:2px solid transparent;transition:border-color .15s,background .15s;user-select:none;}
+.tc.sel{border-color:var(--green);background:var(--green-light);}
+.tcg{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;color:var(--green-dark);min-width:18px;}
+.tct{font-size:.82rem;font-weight:500;flex:1;}
+.tcn{font-size:.68rem;color:var(--muted);}
+.bi{background:#fff;border-radius:12px;padding:.9rem 1.25rem;box-shadow:var(--shadow);margin-bottom:1.25rem;font-size:.85rem;color:var(--muted);line-height:1.6;}
+.ko-section{margin-bottom:1.75rem;}
+.ko-count{font-size:.82rem;color:var(--muted);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem;}
+.ko-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--green);letter-spacing:1px;}
+.ko-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.55rem;}
+.ko-item{background:#fff;border-radius:9px;box-shadow:var(--shadow);padding:.55rem .85rem;display:flex;align-items:center;gap:.6rem;cursor:pointer;border:2px solid transparent;transition:border-color .15s,background .15s;user-select:none;}
+.ko-item.sel{border-color:var(--green);background:var(--green-light);}
+.ko-item.disabled{opacity:.35;cursor:not-allowed;pointer-events:none;}
+.ko-grp{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.5px;color:var(--green-dark);min-width:22px;}
+.ko-name{font-size:.8rem;font-weight:500;flex:1;line-height:1.2;}
+.bog{display:grid;gap:1.25rem;}
+.boc{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:1rem 1.25rem;}
+.boc label{display:block;font-size:.76rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.2rem;}
+.bopl{font-family:'Bebas Neue',sans-serif;font-size:.84rem;color:var(--gold);letter-spacing:.5px;margin-bottom:.45rem;}
+.boi{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.55rem .85rem;font-size:.92rem;font-family:'DM Sans',sans-serif;outline:none;}
+.boi:focus{border-color:var(--gold);}
+.smh{background:var(--green-dark);border-radius:16px;padding:1.5rem 2rem;color:#fff;margin-bottom:1.25rem;text-align:center;}
+.smh h2{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:.1rem;}
+.smn{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:var(--gold);line-height:1;}
+.smt{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:2px;color:#fff;line-height:1;margin:.3rem 0 .05rem;}
+.smpl{font-size:.77rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
+.sms{background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:.85rem;}
+.smsh{background:var(--green-light);padding:.5rem 1rem;font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--green-dark);display:flex;justify-content:space-between;}
+.smr{display:flex;justify-content:space-between;align-items:center;padding:.48rem 1rem;border-bottom:1px solid var(--border);font-size:.83rem;}
+.smr:last-child{border-bottom:none;}
+.smp{font-family:'Bebas Neue',sans-serif;font-size:.93rem;color:var(--green);letter-spacing:.5px;}
+.eb{display:flex;gap:.65rem;margin-top:1.25rem;flex-wrap:wrap;}
+.pbw{background:rgba(255,255,255,.12);border-radius:4px;height:4px;margin-top:.42rem;overflow:hidden;}
+.pbf{height:100%;background:var(--gold);border-radius:4px;transition:width .4s;}
+.admin-card{background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:.8rem;}
+.admin-hdr{background:var(--green-dark);color:#fff;padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
+.admin-nm{font-size:.9rem;font-weight:600;flex:1;}
+.admin-meta{font-size:.7rem;color:rgba(255,255,255,.5);}
+.admin-tog{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;font-size:.73rem;font-family:'DM Sans',sans-serif;border-radius:4px;padding:2px 8px;}
+.admin-body{padding:.85rem 1rem;display:none;border-top:1px solid var(--border);}
+.admin-body.open{display:block;}
+.admin-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--green);font-weight:600;font-size:.88rem;text-decoration:none;padding:.5rem .9rem;background:var(--green-light);border-radius:7px;margin-bottom:.6rem;}
+.admin-link:hover{background:#c5e8d4;}
+.admin-detail-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--border);font-size:.8rem;}
+.admin-detail-row:last-child{border-bottom:none;}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--green-dark);color:#fff;padding:.62rem 1.35rem;border-radius:8px;font-size:.83rem;font-weight:500;z-index:999;transition:transform .3s;box-shadow:0 4px 20px rgba(0,0,0,.2);pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.snav{display:flex;justify-content:flex-end;margin-top:1.25rem;}
+.bn{background:var(--green);color:#fff;padding:.65rem 1.5rem;border-radius:8px;font-size:.87rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;}
+.bn:hover{background:var(--green-dark);}
+.saving-indicator{font-size:.72rem;color:var(--gold);margin-left:.75rem;opacity:0;transition:opacity .3s;}
+.saving-indicator.show{opacity:1;}
+@media(max-width:580px){.gg{grid-template-columns:1fr;}.tg{grid-template-columns:1fr 1fr;}.mn{font-size:.72rem;}.ob{min-width:26px;font-size:.67rem;}.ko-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hi">
+    <div><div class="ht">Axels Stora VM-Tips 2026</div><div class="hs">FIFA World Cup</div></div>
+    <div style="flex:1"></div>
+    <span class="saving-indicator" id="savingInd">Sparar...</span>
+    <div id="hsc" style="display:none;font-family:'Bebas Neue',sans-serif;font-size:1.25rem;color:var(--gold);letter-spacing:1px">0 P</div>
+  </div>
+</header>
+<div class="tab-bar" id="tabBar" style="display:none">
+  <div class="tab active" data-page="groups" onclick="navTab('groups',this)">Gruppspel</div>
+  <div class="tab locked" data-page="thirds" onclick="navTab('thirds',this)">Grupp-3:or</div>
+  <div class="tab locked" data-page="knockout" onclick="navTab('knockout',this)">Slutspel</div>
+  <div class="tab" data-page="bonus" onclick="navTab('bonus',this)">Bonus</div>
+  <div class="tab" data-page="summary" onclick="navTab('summary',this)">Summering</div>
+  <div class="tab" data-page="admin" onclick="navTab('admin',this)">Admin</div>
+</div>
+<main>
+ 
+<!-- START -->
+<div class="page active" id="page-start">
+  <div class="sc">
+    <h1>Axels Stora<br>VM-Tips 2026</h1>
+    <p style="margin-top:.6rem">Tippa alla 72 gruppspelsmatcher, välj dina 8 grupp-3:or och tippa vilka lag som går vidare i varje slutspelsrunda.</p>
+  </div>
+  <div class="card">
+    <label>Ditt namn</label>
+    <input type="text" id="pName" placeholder="ex. Axel Andersson" autocomplete="name">
+    <label>Din e-postadress</label>
+    <input type="email" id="pEmail" placeholder="ex. axel@example.com" autocomplete="email">
+    <div style="font-size:.72rem;color:var(--muted);margin-top:.35rem">Används för att skicka uppdateringar, ställningar och rätta svar.</div>
+  </div>
+  <div id="preloadBox" style="display:none" class="card">
+    <div style="font-size:.77rem;font-weight:600;color:var(--green-dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">Sparat tips hittades</div>
+    <div id="preloadMsg" style="font-size:.83rem;color:var(--muted);margin-bottom:.75rem"></div>
+    <button class="btn bp" onclick="loadSaved()">Öppna sparat tips</button>
+  </div>
+  <div class="card">
+    <h3>Poängregler</h3>
+    <div class="rr"><span>Gruppspelsmatch — rätt utfall</span><span class="rp">Odds-p</span></div>
+    <div class="rr"><span>Dubbelchans (1 per grupp)</span><span class="rp">× 2</span></div>
+    <div class="rr"><span>Lag i 16-delsfinal</span><span class="rp">12 P</span></div>
+    <div class="rr"><span>Lag i åttondelsfinal</span><span class="rp">25 P</span></div>
+    <div class="rr"><span>Lag i kvartsfinal</span><span class="rp">50 P</span></div>
+    <div class="rr"><span>Lag i semifinal</span><span class="rp">100 P</span></div>
+    <div class="rr"><span>Finalister</span><span class="rp">150 P var.</span></div>
+    <div class="rr"><span>VM-vinnare</span><span class="rp">250 P</span></div>
+    <div class="rr"><span>Bronsmedaljör</span><span class="rp">50 P</span></div>
+    <div class="rr"><span>Skyttekung / Assistkung / Golden Ball</span><span class="rp">80 P var.</span></div>
+    <div class="rr"><span>Lag med flest gula kort</span><span class="rp">40 P</span></div>
+    <div class="rr"><span>Sveriges meste målgörare</span><span class="rp">40 P</span></div>
+  </div>
+  <button class="btn bp" onclick="startTipping()">Starta tipset →</button>
+  <div style="text-align:center;margin-top:.75rem">
+    <button onclick="openAdminDirect()" style="background:none;border:none;color:var(--muted);font-size:.8rem;text-decoration:underline;cursor:pointer;padding:.4rem">Admin →</button>
+  </div>
+</div>
+ 
+<!-- GROUPS -->
+<div class="page" id="page-groups">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem">
+    <div class="st" style="margin:0;flex:1">Gruppspel</div>
+    <span id="gProg" style="font-size:.77rem;color:var(--muted);margin-left:1rem;white-space:nowrap"></span>
+  </div>
+  <div class="gg" id="groupGrid"></div>
+  <div class="snav"><button class="bn" onclick="goToThirds()">Välj grupp-3:or →</button></div>
+</div>
+ 
+<!-- THIRDS -->
+<div class="page" id="page-thirds">
+  <div class="st">Välj 8 av 12 grupp-3:or</div>
+  <div class="bi">Baserat på ditt gruppspelstips visas alla 12 tippade grupptreor. <strong>Välj de 8 lag du tror går vidare</strong> — precis som FIFA väljer bästa 8 av 12.</div>
+  <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem">
+    <span style="font-size:.85rem;color:var(--muted)">Valda:</span>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--green);letter-spacing:1px" id="tcNum">0</span>
+    <span style="font-size:.85rem;color:var(--muted)">/ 8</span>
+  </div>
+  <div class="tg" id="thirdGrid"></div>
+  <div class="snav" style="margin-top:1.25rem"><button class="bn" onclick="goToKnockout()">Tippa slutspelet →</button></div>
+</div>
+ 
+<!-- KNOCKOUT -->
+<div class="page" id="page-knockout">
+  <div class="bi">Välj vilka lag som går vidare i varje runda. Varje runda filtreras automatiskt. Välj till sist de 2 finalisterna bland dina semifinalister — rätt finalist ger 150p och rätt VM-vinnare tippas under Bonus (250p).</div>
+  <div id="koContent"></div>
+  <div style="background:#fff;border-radius:12px;padding:.85rem 1.25rem;box-shadow:var(--shadow);font-size:.83rem;color:var(--muted);">
+    <strong style="color:var(--text)">Obs:</strong> Finalen tippas inte — inga poäng för lag i final. Tippa VM-vinnaren under <strong>Bonus</strong> istället.
+  </div>
+</div>
+ 
+<!-- BONUS -->
+<div class="page" id="page-bonus">
+  <div class="st">Bonusfrågor</div>
+  <div class="bog">
+    <div class="boc"><label>VM-vinnare</label><div class="bopl">250 poäng</div><input class="boi" id="bWinner" type="text" placeholder="t.ex. Brasilien" oninput="debounceSave()"></div>
+    <div class="boc"><label>Bronsmedaljör</label><div class="bopl">50 poäng</div><input class="boi" id="bBronze" type="text" placeholder="Vilket land är trea?" oninput="debounceSave()"></div>
+    <div class="boc"><label>Skyttekung</label><div class="bopl">80 poäng</div><input class="boi" id="bScorer" type="text" placeholder="Vem gör flest mål?" oninput="debounceSave()"></div>
+    <div class="boc"><label>Assistkung</label><div class="bopl">80 poäng</div><input class="boi" id="bAssist" type="text" placeholder="Vem gör flest assist?" oninput="debounceSave()"></div>
+    <div class="boc"><label>Turneringens spelare / Golden Ball</label><div class="bopl">80 poäng</div><input class="boi" id="bBall" type="text" placeholder="Vem vinner Golden Ball?" oninput="debounceSave()"></div>
+    <div class="boc"><label>Lag med flest gula kort</label><div class="bopl">40 poäng</div><input class="boi" id="bYellow" type="text" placeholder="Vilket lag får flest gula kort?" oninput="debounceSave()"></div>
+    <div class="boc"><label>Sveriges meste målgörare</label><div class="bopl">40 poäng</div><input class="boi" id="bSweden" type="text" placeholder="Vem gör flest mål för Sverige?" oninput="debounceSave()"></div>
+  </div>
+</div>
+ 
+<!-- SUMMARY -->
+<div class="page" id="page-summary">
+  <div class="smh">
+    <h2>TIPS AV</h2>
+    <div class="smn" id="smName">—</div>
+    <div class="smt" id="smTotal">0</div>
+    <div class="smpl">möjliga poäng tippade</div>
+    <div class="pbw"><div class="pbf" id="smProg" style="width:0%"></div></div>
+    <div style="font-size:.68rem;color:rgba(255,255,255,.33);margin-top:.3rem" id="smProgLbl"></div>
+  </div>
+  <div id="smGroups" class="sms"></div>
+  <div id="smKO" class="sms"></div>
+  <div id="smBonus" class="sms"></div>
+  <div class="eb">
+    <button class="btn bo" onclick="copyLink()">Kopiera länk</button>
+    <button class="btn bp" onclick="submitTips()" style="flex:2">Skicka in tips →</button>
+  </div>
+  <div id="shareNote" style="margin-top:.65rem;font-size:.76rem;color:var(--muted);text-align:center;display:none">
+    Tips sparat i databasen! Länken innehåller hela ditt tips — skicka den till Axel.
+  </div>
+</div>
+ 
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="st">Admin — Alla inlämnade tips</div>
+  <div class="card" style="display:flex;gap:.75rem;align-items:center;padding:.9rem 1.25rem">
+    <input type="password" id="adminPw" placeholder="Lösenord" style="flex:1;margin-bottom:0">
+    <button class="btn bp" style="width:auto;padding:.55rem 1.2rem" onclick="loadAdmin()">Visa tips</button>
+  </div>
+  <div id="adminContent"></div>
+</div>
+ 
+</main>
+<div class="toast" id="toast"></div>
+ 
+<!-- Firebase Realtime Database -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+ 
+const firebaseConfig = {
+  apiKey: "AIzaSyAfKm6Qf9igwtKd4tgcJqsFbwIJMU_7QTk",
+  authDomain: "vm-tipset-b6635.firebaseapp.com",
+  projectId: "vm-tipset-b6635",
+  storageBucket: "vm-tipset-b6635.firebasestorage.app",
+  messagingSenderId: "269014322385",
+  appId: "1:269014322385:web:09d8247bb801ba847149f0",
+  databaseURL: "https://vm-tipset-b6635-default-rtdb.europe-west1.firebasedatabase.app"
+};
+ 
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+ 
+window.fbSaveTips = async function(data) {
+  const key = (data.name||'anon').toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+  await set(ref(db, 'tips/' + key), { ...data, ts: Date.now() });
+};
+ 
+window.fbLoadAllTips = async function() {
+  const snap = await get(child(ref(db), 'tips'));
+  if (!snap.exists()) return [];
+  return Object.values(snap.val());
+};
+ 
+window.fbDeleteTip = async function(key) {
+  const { ref, remove } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await remove(ref(db, 'tips/' + key));
+};
+ 
+window.fbGetTip = async function(key) {
+  const snap = await get(child(ref(db), 'tips/' + key));
+  if (!snap.exists()) return null;
+  return snap.val();
+};
+ 
+window.fbLoaded = true;
+document.dispatchEvent(new Event('fbReady'));
+</script>
+ 
+<script>
+const GROUPS=[
+  {name:'A',teams:['Mexiko','Sydafrika','Sydkorea','Tjeckien'],matches:[
+    {h:'Mexiko',a:'Sydafrika',o1:15,oX:41,o2:56},{h:'Sydkorea',a:'Tjeckien',o1:27,oX:31,o2:27},
+    {h:'Tjeckien',a:'Sydafrika',o1:19,oX:34,o2:42},{h:'Mexiko',a:'Sydkorea',o1:22,oX:33,o2:32},
+    {h:'Tjeckien',a:'Mexiko',o1:27,oX:31,o2:26},{h:'Sydafrika',a:'Sydkorea',o1:38,oX:34,o2:20}]},
+  {name:'B',teams:['Kanada','Bosnien och Hercegovina','Qatar','Schweiz'],matches:[
+    {h:'Kanada',a:'Bosnien och Hercegovina',o1:22,oX:33,o2:32},{h:'Qatar',a:'Schweiz',o1:68,oX:46,o2:14},
+    {h:'Schweiz',a:'Bosnien och Hercegovina',o1:18,oX:35,o2:45},{h:'Kanada',a:'Qatar',o1:21,oX:33,o2:34},
+    {h:'Schweiz',a:'Kanada',o1:22,oX:32,o2:32},{h:'Bosnien och Hercegovina',a:'Qatar',o1:21,oX:33,o2:36}]},
+  {name:'C',teams:['Brasilien','Marocko','Haiti','Skottland'],matches:[
+    {h:'Brasilien',a:'Marocko',o1:15,oX:43,o2:61},{h:'Haiti',a:'Skottland',o1:64,oX:48,o2:14},
+    {h:'Skottland',a:'Marocko',o1:30,oX:31,o2:23},{h:'Brasilien',a:'Haiti',o1:11,oX:75,o2:150},
+    {h:'Skottland',a:'Brasilien',o1:70,oX:42,o2:15},{h:'Marocko',a:'Haiti',o1:14,oX:44,o2:75}]},
+  {name:'D',teams:['USA','Paraguay','Australien','Turkiet'],matches:[
+    {h:'USA',a:'Paraguay',o1:22,oX:33,o2:30},{h:'Australien',a:'Turkiet',o1:48,oX:36,o2:17},
+    {h:'Turkiet',a:'Paraguay',o1:24,oX:31,o2:29},{h:'USA',a:'Australien',o1:20,oX:33,o2:37},
+    {h:'Turkiet',a:'USA',o1:26,oX:31,o2:27},{h:'Paraguay',a:'Australien',o1:24,oX:31,o2:29}]},
+  {name:'E',teams:['Tyskland','Curaçao','Elfenbenskusten','Ecuador'],matches:[
+    {h:'Tyskland',a:'Curaçao',o1:10,oX:250,o2:340},{h:'Elfenbenskusten',a:'Ecuador',o1:31,oX:33,o2:21},
+    {h:'Tyskland',a:'Elfenbenskusten',o1:17,oX:36,o2:48},{h:'Ecuador',a:'Curaçao',o1:17,oX:37,o2:50},
+    {h:'Curaçao',a:'Elfenbenskusten',o1:55,oX:36,o2:15},{h:'Ecuador',a:'Tyskland',o1:50,oX:38,o2:17}]},
+  {name:'F',teams:['Nederländerna','Japan','Sverige','Tunisien'],matches:[
+    {h:'Nederländerna',a:'Japan',o1:18,oX:35,o2:41},{h:'Sverige',a:'Tunisien',o1:19,oX:33,o2:43},
+    {h:'Nederländerna',a:'Sverige',o1:19,oX:35,o2:42},{h:'Tunisien',a:'Japan',o1:35,oX:32,o2:21},
+    {h:'Japan',a:'Sverige',o1:26,oX:31,o2:27},{h:'Tunisien',a:'Nederländerna',o1:65,oX:40,o2:15}]},
+  {name:'G',teams:['Iran','Nya Zeeland','Belgien','Egypten'],matches:[
+    {h:'Iran',a:'Nya Zeeland',o1:16,oX:39,o2:51},{h:'Belgien',a:'Egypten',o1:16,oX:39,o2:50},
+    {h:'Belgien',a:'Iran',o1:16,oX:38,o2:55},{h:'Nya Zeeland',a:'Egypten',o1:55,oX:39,o2:16},
+    {h:'Egypten',a:'Iran',o1:42,oX:34,o2:19},{h:'Nya Zeeland',a:'Belgien',o1:130,oX:70,o2:11}]},
+  {name:'H',teams:['Spanien','Kap Verde','Saudiarabien','Uruguay'],matches:[
+    {h:'Spanien',a:'Kap Verde',o1:11,oX:100,o2:190},{h:'Saudiarabien',a:'Uruguay',o1:65,oX:45,o2:14},
+    {h:'Spanien',a:'Saudiarabien',o1:14,oX:48,o2:85},{h:'Uruguay',a:'Kap Verde',o1:16,oX:37,o2:52},
+    {h:'Kap Verde',a:'Saudiarabien',o1:23,oX:32,o2:29},{h:'Uruguay',a:'Spanien',o1:37,oX:33,o2:20}]},
+  {name:'I',teams:['Frankrike','Senegal','Irak','Norge'],matches:[
+    {h:'Frankrike',a:'Senegal',o1:14,oX:45,o2:70},{h:'Irak',a:'Norge',o1:75,oX:47,o2:14},
+    {h:'Frankrike',a:'Irak',o1:12,oX:65,o2:130},{h:'Norge',a:'Senegal',o1:29,oX:32,o2:24},
+    {h:'Norge',a:'Frankrike',o1:48,oX:37,o2:17},{h:'Senegal',a:'Irak',o1:14,oX:45,o2:80}]},
+  {name:'J',teams:['Argentina','Algeriet','Österrike','Jordanien'],matches:[
+    {h:'Argentina',a:'Algeriet',o1:13,oX:51,o2:90},{h:'Österrike',a:'Jordanien',o1:13,oX:52,o2:68},
+    {h:'Argentina',a:'Österrike',o1:18,oX:36,o2:45},{h:'Jordanien',a:'Algeriet',o1:50,oX:38,o2:16},
+    {h:'Algeriet',a:'Österrike',o1:29,oX:32,o2:23},{h:'Jordanien',a:'Argentina',o1:150,oX:75,o2:11}]},
+  {name:'K',teams:['Portugal','Kongo-Kinshasa','Uzbekistan','Colombia'],matches:[
+    {h:'Portugal',a:'Kongo-Kinshasa',o1:13,oX:46,o2:90},{h:'Uzbekistan',a:'Colombia',o1:75,oX:48,o2:14},
+    {h:'Portugal',a:'Uzbekistan',o1:12,oX:60,o2:120},{h:'Colombia',a:'Kongo-Kinshasa',o1:18,oX:35,o2:45},
+    {h:'Colombia',a:'Portugal',o1:40,oX:34,o2:19},{h:'Kongo-Kinshasa',a:'Uzbekistan',o1:21,oX:33,o2:34}]},
+  {name:'L',teams:['England','Kroatien','Ghana','Panama'],matches:[
+    {h:'England',a:'Kroatien',o1:16,oX:40,o2:53},{h:'Ghana',a:'Panama',o1:18,oX:35,o2:43},
+    {h:'England',a:'Ghana',o1:16,oX:39,o2:58},{h:'Panama',a:'Kroatien',o1:65,oX:40,o2:15},
+    {h:'Panama',a:'England',o1:130,oX:65,o2:12},{h:'Kroatien',a:'Ghana',o1:22,oX:32,o2:32}]}
+];
+ 
+const ADMIN_PW = 'axel2026';
+const DEADLINE = new Date('2026-06-11T21:00:00+02:00'); // VM-start
+function isLocked() { return new Date() >= DEADLINE; }
+function lockMsg() { return 'Tipset är låst sedan den 11 juni 2026 kl. 21:00 — turneringen har börjat!'; }
+let S = {name:'',email:'',groups:{},thirds:[],ko:{r16:[],r8:[],qf:[],sf:[]}};
+let dblPending = null;
+let saveTimer = null;
+ 
+function gv(id){return document.getElementById(id)?.value.trim()||'';}
+function sv(id,v){const el=document.getElementById(id);if(el)el.value=v||'';}
+ 
+function getBonus(){
+  return {winner:gv('bWinner'),bronze:gv('bBronze'),
+          scorer:gv('bScorer'),assist:gv('bAssist'),ball:gv('bBall'),
+          yellow:gv('bYellow'),sweden:gv('bSweden')};
+}
+ 
+function encState(){
+  try{return btoa(unescape(encodeURIComponent(JSON.stringify({...S,bonus:getBonus()}))));}
+  catch(e){return '';}
+}
+function decState(s){try{return JSON.parse(decodeURIComponent(escape(atob(s))));}catch(e){return null;}}
+function getShareURL(){return location.href.split('?')[0]+'?tips='+encState();}
+ 
+// ---- FIREBASE SAVE ----
+async function saveToFirebase(){
+  if(!window.fbSaveTips) return;
+  const ind = document.getElementById('savingInd');
+  ind.textContent = 'Sparar...'; ind.classList.add('show');
+  try {
+    await window.fbSaveTips({...S, bonus: getBonus(), ts: Date.now()});
+    ind.textContent = '✓ Sparat';
+    setTimeout(()=>ind.classList.remove('show'), 2000);
+  } catch(e) {
+    ind.textContent = '⚠ Fel vid sparning';
+    setTimeout(()=>ind.classList.remove('show'), 3000);
+    console.error('Firebase save error:', e);
+  }
+}
+ 
+function debounceSave(){
+  updateScore();
+  if(!S.name) return;
+  if(isLocked()) return; // no saves after deadline
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToFirebase, 1500);
+}
+ 
+// ---- URL LOAD ----
+window.addEventListener('load', () => {
+  // Show lock banner if past deadline
+  if(isLocked()){
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:#c8102e;color:#fff;text-align:center;padding:.6rem 1rem;font-size:.82rem;font-weight:500;position:sticky;top:54px;z-index:98;';
+    banner.textContent = '🔒 Tipset är låst — turneringen har börjat!';
+    document.querySelector('.tab-bar') ? document.querySelector('.tab-bar').after(banner) : document.body.prepend(banner);
+  }
+  const p = new URLSearchParams(location.search).get('tips');
+  if(!p) return;
+  const d = decState(p);
+  if(!d||!d.name) return;
+  S = d;
+  sv('pName', d.name); sv('pEmail', d.email||'');
+  if(d.bonus){
+    sv('bWinner',d.bonus.winner); sv('bBronze',d.bonus.bronze); sv('bScorer',d.bonus.scorer);
+    sv('bAssist',d.bonus.assist); sv('bBall',d.bonus.ball);
+    sv('bYellow',d.bonus.yellow); sv('bSweden',d.bonus.sweden);
+  }
+  document.getElementById('preloadBox').style.display = 'block';
+  document.getElementById('preloadMsg').textContent = 'Tips från '+d.name+' är inläst. Klicka nedan för att öppna eller redigera det.';
+});
+ 
+function loadSaved(){
+  ensureState();
+  document.getElementById('page-start').classList.remove('active');
+  document.getElementById('tabBar').style.display = 'flex';
+  document.getElementById('hsc').style.display = 'block';
+  if(!Array.isArray(S.thirds)) S.thirds=[];
+  if(S.thirds.length===8){unlockTab('thirds');unlockTab('knockout');}
+  else unlockTab('thirds');
+  buildGroups(); showPage(S.thirds.length===8?'knockout':'groups'); updateScore();
+}
+ 
+function ensureState(){
+  GROUPS.forEach(g=>{
+    if(!S.groups[g.name]) S.groups[g.name]={picks:Array(6).fill(null),double:null,order:[...g.teams]};
+    if(!S.groups[g.name].order) S.groups[g.name].order=[...g.teams];
+  });
+  if(!S.ko) S.ko={r16:[],r8:[],qf:[],sf:[]};
+  ['r16','r8','qf','sf'].forEach(k=>{if(!Array.isArray(S.ko[k]))S.ko[k]=[];});
+}
+ 
+async function startTipping(){
+  const n = gv('pName');
+  if(!n){toast('Ange ditt namn först!');return;}
+ 
+  // After deadline: load tip in read-only mode
+  if(isLocked()){
+    const email = gv('pEmail');
+    const key = n.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+    if(window.fbGetTip){
+      toast('Hämtar ditt tips...');
+      try {
+        const existing = await window.fbGetTip(key);
+        if(existing && existing.name){
+          S = existing; S.name = existing.name; S.email = existing.email||email;
+          ensureState();
+          if(existing.bonus){
+            sv('bWinner',existing.bonus.winner||''); sv('bBronze',existing.bonus.bronze||'');
+            sv('bScorer',existing.bonus.scorer||''); sv('bAssist',existing.bonus.assist||'');
+            sv('bBall',existing.bonus.ball||''); sv('bYellow',existing.bonus.yellow||'');
+            sv('bSweden',existing.bonus.sweden||'');
+          }
+          document.getElementById('page-start').classList.remove('active');
+          document.getElementById('tabBar').style.display='flex';
+          document.getElementById('hsc').style.display='block';
+          unlockTab('thirds'); unlockTab('knockout');
+          buildGroups(); showPage('groups'); updateScore();
+          setReadOnly(true);
+          toast('Tipset är låst — du kan se men inte ändra.');
+        } else {
+          toast('Inget sparat tips hittades för det namnet.');
+        }
+      } catch(e){ toast('Kunde inte hämta tips.'); }
+    } else {
+      toast(lockMsg());
+    }
+    return;
+  }
+ 
+  const email = gv('pEmail');
+  const key = n.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+ 
+  // Try to load existing tip from Firebase
+  if(window.fbGetTip){
+    try {
+      toast('Söker efter sparat tips...');
+      const existing = await window.fbGetTip(key);
+      if(existing && existing.name){
+        S = existing;
+        S.name = existing.name;
+        S.email = existing.email || email;
+        ensureState();
+        // Load bonus fields
+        if(existing.bonus){
+          sv('bWinner', existing.bonus.winner||'');
+          sv('bBronze', existing.bonus.bronze||'');
+          sv('bScorer', existing.bonus.scorer||'');
+          sv('bAssist', existing.bonus.assist||'');
+          sv('bBall', existing.bonus.ball||'');
+          sv('bYellow', existing.bonus.yellow||'');
+          sv('bSweden', existing.bonus.sweden||'');
+        }
+        document.getElementById('page-start').classList.remove('active');
+        document.getElementById('tabBar').style.display = 'flex';
+        document.getElementById('hsc').style.display = 'block';
+        if(S.thirds.length===8){unlockTab('thirds');unlockTab('knockout');}
+        else if(Object.values(S.groups).some(g=>g.picks.some(p=>p))) unlockTab('thirds');
+        buildGroups();
+        showPage(S.thirds.length===8?'knockout':'groups');
+        updateScore();
+        toast('Sparat tips hittades och laddades!');
+        return;
+      }
+    } catch(e) {
+      console.warn('Could not fetch existing tip:', e);
+    }
+  }
+ 
+  // No existing tip — start fresh
+  S.name = n; S.email = email;
+  ensureState();
+  document.getElementById('page-start').classList.remove('active');
+  document.getElementById('tabBar').style.display = 'flex';
+  document.getElementById('hsc').style.display = 'block';
+  buildGroups(); showPage('groups');
+}
+ 
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.page===name));
+  if(name==='summary') buildSummary();
+  if(name==='knockout') buildKnockout();
+}
+function navTab(name,el){
+  if(name==='admin'){showPage('admin');return;} // admin always accessible
+  if(el.classList.contains('locked')){toast('Fyll i gruppspelet och välj grupp-3:or först!');return;}
+  showPage(name);
+}
+function unlockTab(name){document.querySelectorAll('.tab').forEach(t=>{if(t.dataset.page===name)t.classList.remove('locked');});}
+ 
+// ---- STANDINGS ----
+function computeStandings(gn){
+  const g=GROUPS.find(x=>x.name===gn), gs=S.groups[gn];
+  const order=gs?.order||g.teams; const tbl={};
+  order.forEach(t=>{tbl[t]={t,pts:0,played:0};});
+  g.matches.forEach((m,i)=>{
+    const p=gs?.picks[i]; if(!p) return;
+    tbl[m.h].played++; tbl[m.a].played++;
+    if(p==='1') tbl[m.h].pts+=3;
+    else if(p==='X'){tbl[m.h].pts+=1;tbl[m.a].pts+=1;}
+    else tbl[m.a].pts+=3;
+  });
+  const rows=order.map(t=>tbl[t]||{t,pts:0,played:0});
+  rows.sort((a,b)=>b.pts-a.pts||(order.indexOf(a.t)-order.indexOf(b.t)));
+  return rows;
+}
+function hasTie(st){for(let i=0;i<st.length-1;i++)if(st[i].pts===st[i+1].pts)return true;return false;}
+const getW=gn=>computeStandings(gn)[0].t;
+const getR=gn=>computeStandings(gn)[1].t;
+const getT=gn=>computeStandings(gn)[2].t;
+ 
+function getR16Teams(){
+  const teams=[];
+  GROUPS.forEach(g=>{
+    teams.push({team:getW(g.name),group:g.name,pos:'1'});
+    teams.push({team:getR(g.name),group:g.name,pos:'2'});
+  });
+  (S.thirds||[]).forEach(g=>teams.push({team:getT(g),group:g,pos:'3'}));
+  return teams;
+}
+ 
+// ---- GROUPS ----
+function buildGroups(){
+  const grid=document.getElementById('groupGrid'); grid.innerHTML='';
+  GROUPS.forEach(g=>{
+    const card=document.createElement('div'); card.className='gc'; card.id='gc-'+g.name;
+    grid.appendChild(card); renderGroup(g.name);
+  });
+  updateGProg();
+}
+function renderGroup(gn){
+  const g=GROUPS.find(x=>x.name===gn), gs=S.groups[gn]; if(!gs) return;
+  const st=computeStandings(gn), tie=hasTie(st);
+  let h=`<div class="gh"><span class="gn">GRUPP ${gn}</span><span class="dbl ${gs.double!==null?'used':''}" onclick="activateDbl('${gn}')">${gs.double!==null?'2× Använd':'2× Dubbelchans'}</span></div>`;
+  g.matches.forEach((m,i)=>{
+    const p=gs.picks[i], isDbl=gs.double===i;
+    h+=`<div class="mr"><span class="mn">${m.h}<br>${m.a}</span>
+      <button class="ob ${p==='1'?(isDbl?'dbl2':'sel'):''}" onclick="pickM('${gn}',${i},'1')">${m.o1}</button>
+      <button class="ob ${p==='X'?(isDbl?'dbl2':'sel'):''}" onclick="pickM('${gn}',${i},'X')">${m.oX}</button>
+      <button class="ob ${p==='2'?(isDbl?'dbl2':'sel'):''}" onclick="pickM('${gn}',${i},'2')">${m.o2}</button></div>`;
+  });
+  h+=`<div class="shdr"><span>#</span><span>Lag${tie?' <small style="color:var(--gold);font-size:.58rem"> ↕ vid lika</small>':''}</span><span class="cr">Sp</span><span class="cr">Pts</span><span class="cr"></span></div>`;
+  const card=document.getElementById('gc-'+gn); card.innerHTML=h;
+  const pcls=['w','r','t','f'];
+  st.forEach((row,i)=>{
+    const div=document.createElement('div');
+    div.className=`srow p${i+1}`;
+    div.dataset.team=row.t; div.dataset.group=gn;
+    const canUp=tie&&i>0&&st[i-1].pts===row.pts;
+    const canDn=tie&&i<st.length-1&&st[i+1].pts===row.pts;
+    const upBtn=`<button class="move-btn" onclick="moveTeam('${gn}','${row.t}',-1)" ${canUp?'':'disabled'}>▲</button>`;
+    const dnBtn=`<button class="move-btn" onclick="moveTeam('${gn}','${row.t}',1)" ${canDn?'':'disabled'}>▼</button>`;
+    div.innerHTML=`<div class="pb ${pcls[i]}">${i+1}</div><span style="font-size:.77rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${row.t}</span><span class="cr" style="font-size:.71rem;color:var(--muted)">${row.played}</span><span class="cr" style="font-size:.71rem;font-weight:600">${row.pts}</span><span class="cr" style="display:flex;gap:1px">${tie?upBtn+dnBtn:''}</span>`;
+    card.appendChild(div);
+  });
+}
+function moveTeam(gn, team, dir){
+  const gs=S.groups[gn];
+  const st=computeStandings(gn);
+  const order=st.map(r=>r.t);
+  const idx=order.indexOf(team);
+  if(idx<0)return;
+  const ni=idx+dir;
+  if(ni<0||ni>=order.length)return;
+  if(st[idx].pts!==st[ni].pts)return;
+  [order[idx],order[ni]]=[order[ni],order[idx]];
+  gs.order=order;
+  renderGroup(gn);updateScore();
+}
+function activateDbl(gn){
+  const gs=S.groups[gn];
+  if(gs.double!==null){gs.double=null;dblPending=null;renderGroup(gn);debounceSave();return;}
+  dblPending=gn; toast('Klicka på en match i grupp '+gn+' för att sätta dubbelchans');
+}
+function pickM(gn,i,outcome){
+  const gs=S.groups[gn];
+  if(dblPending===gn){gs.picks[i]=outcome;gs.double=i;dblPending=null;}
+  else gs.picks[i]=outcome;
+  renderGroup(gn); debounceSave(); updateGProg();
+}
+function updateGProg(){
+  let tot=0,done=0;
+  GROUPS.forEach(g=>g.matches.forEach((_,i)=>{tot++;if(S.groups[g.name]?.picks[i])done++;}));
+  document.getElementById('gProg').textContent=done+' / '+tot+' matchat';
+}
+ 
+// ---- THIRDS ----
+function goToThirds(){buildThirds();unlockTab('thirds');showPage('thirds');}
+function buildThirds(){
+  if(!Array.isArray(S.thirds)) S.thirds=[];
+  const grid=document.getElementById('thirdGrid'); grid.innerHTML='';
+  GROUPS.forEach(g=>{
+    const st=computeStandings(g.name), t=st[2], sel=S.thirds.includes(g.name);
+    const card=document.createElement('div'); card.className='tc'+(sel?' sel':''); card.id='tc-'+g.name; card.onclick=()=>toggleThird(g.name);
+    card.innerHTML=`<span class="tcg">${g.name}</span><div><div class="tct">${t.t}</div><div class="tcn">${t.pts} poäng</div></div>`;
+    grid.appendChild(card);
+  });
+  document.getElementById('tcNum').textContent=S.thirds.length;
+}
+function toggleThird(g){
+  if(!Array.isArray(S.thirds)) S.thirds=[];
+  const idx=S.thirds.indexOf(g);
+  if(idx>=0) S.thirds.splice(idx,1);
+  else{if(S.thirds.length>=8){toast('Redan 8 valda!');return;}S.thirds.push(g);}
+  GROUPS.forEach(gr=>{const c=document.getElementById('tc-'+gr.name);if(c)c.className='tc'+(S.thirds.includes(gr.name)?' sel':'');});
+  document.getElementById('tcNum').textContent=S.thirds.length; debounceSave();
+}
+function goToKnockout(){
+  if(S.thirds.length!==8){toast('Välj exakt 8 grupp-3:or!');return;}
+  const valid=getR16Teams().map(x=>x.team);
+  S.ko.r16=S.ko.r16.filter(t=>valid.includes(t));
+  S.ko.r8=S.ko.r8.filter(t=>S.ko.r16.includes(t));
+  S.ko.qf=S.ko.qf.filter(t=>S.ko.r8.includes(t));
+  S.ko.sf=S.ko.sf.filter(t=>S.ko.qf.includes(t));
+  unlockTab('knockout'); buildKnockout(); showPage('knockout');
+}
+ 
+// ---- KNOCKOUT ----
+function buildKnockout(){
+  const container=document.getElementById('koContent'); container.innerHTML='';
+  const roundDef=[
+    {key:'r16',title:'16-delsfinal → Åttondelsfinal',sub:'Välj 16 lag som tar sig till åttondelsfinalen',pool:()=>getR16Teams(),max:16,pts:25},
+    {key:'r8', title:'Åttondelsfinal → Kvartsfinal', sub:'Välj 8 lag som tar sig till kvartsfinal',     pool:()=>S.ko.r16.map(t=>teamWithGroup(t)),max:8,pts:50},
+    {key:'qf', title:'Kvartsfinal → Semifinal',      sub:'Välj 4 lag som tar sig till semifinal',       pool:()=>S.ko.r8.map(t=>teamWithGroup(t)), max:4,pts:100},
+    {key:'sf', title:'Finalister',                   sub:'Välj de 2 lag som går till finalen',          pool:()=>S.ko.qf.map(t=>teamWithGroup(t)), max:2,pts:150},
+  ];
+  roundDef.forEach(round=>{
+    const pool=round.pool(), sel=S.ko[round.key];
+    const sec=document.createElement('div'); sec.className='ko-section';
+    sec.innerHTML=`<div class="st">${round.title}</div>
+      <div style="font-size:.83rem;color:var(--muted);margin-bottom:.65rem">${round.sub}</div>
+      <div class="ko-count"><span class="ko-num">${sel.length}</span><span style="font-size:.82rem;color:var(--muted)">/ ${round.max} valda &nbsp;·&nbsp; ${round.pts} p per lag</span></div>`;
+    const grid=document.createElement('div'); grid.className='ko-grid';
+    if(pool.length===0){
+      const msg=document.createElement('div');
+      msg.style.cssText='color:var(--muted);font-size:.82rem;padding:.5rem 0;grid-column:1/-1;';
+      msg.textContent='Fyll i föregående runda först.';
+      grid.appendChild(msg);
+    } else {
+      pool.forEach(({team,group,pos})=>{
+        const isSel=sel.includes(team);
+        const item=document.createElement('div');
+        item.className='ko-item'+(isSel?' sel':'');
+        item.innerHTML=`<span class="ko-grp">${group}${pos}</span><span class="ko-name">${team}</span>`;
+        item.onclick=()=>toggleKO(round.key,team,round.max);
+        grid.appendChild(item);
+      });
+    }
+    sec.appendChild(grid); container.appendChild(sec);
+  });
+}
+ 
+function teamWithGroup(teamName){
+  for(const g of GROUPS) if(g.teams.includes(teamName)) return{team:teamName,group:g.name,pos:''};
+  return{team:teamName,group:'',pos:''};
+}
+function toggleKO(key,team,max){
+  const arr=S.ko[key], idx=arr.indexOf(team);
+  if(idx>=0){
+    arr.splice(idx,1);
+    const later={r16:['r8','qf','sf'],r8:['qf','sf'],qf:['sf'],sf:[]}[key]||[];
+    later.forEach(k=>S.ko[k]=S.ko[k].filter(t=>t!==team));
+  } else {
+    if(arr.length>=max){toast('Redan '+max+' valda for denna runda!');return;}
+    arr.push(team);
+  }
+  buildKnockout(); debounceSave();
+}
+ 
+// ---- SCORE ----
+function updateScore(){
+  let score=0;
+  GROUPS.forEach(g=>{
+    const gs=S.groups[g.name];
+    g.matches.forEach((m,i)=>{
+      const p=gs?.picks[i]; if(!p) return;
+      let pts=p==='1'?m.o1:p==='X'?m.oX:m.o2;
+      if(gs.double===i) pts*=2; score+=pts;
+    });
+  });
+  score+=24*12; S.thirds.forEach(()=>score+=12);
+  const rp={r16:25,r8:50,qf:100,sf:150,final:0};
+  Object.entries(S.ko).forEach(([k,picks])=>picks.forEach(()=>score+=rp[k]||0));
+  const bp=[250,50,80,80,80,40,40];
+  ['bWinner','bBronze','bScorer','bAssist','bBall','bYellow','bSweden'].forEach((id,i)=>{if(gv(id))score+=bp[i];});
+  document.getElementById('hsc').textContent=score.toLocaleString('sv')+' P';
+  return score;
+}
+ 
+// ---- SUMMARY ----
+function buildSummary(){
+  document.getElementById('smName').textContent=S.name||'—';
+  let total=0;
+  let gh='<div class="smsh"><span>Gruppspel</span><span>Poäng</span></div>';
+  GROUPS.forEach(g=>{
+    const gs=S.groups[g.name];
+    g.matches.forEach((m,i)=>{
+      const p=gs?.picks[i]; if(!p) return;
+      let pts=p==='1'?m.o1:p==='X'?m.oX:m.o2;
+      const isDbl=gs.double===i; if(isDbl) pts*=2; total+=pts;
+      gh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${m.h} – ${m.a}</span><span style="display:flex;align-items:center;gap:.3rem"><span style="font-size:.77rem">${p==='1'?m.h:p==='X'?'Oavgjort':m.a}${isDbl?' ×2':''}</span><span class="smp">${pts}</span></span></div>`;
+    });
+  });
+  document.getElementById('smGroups').innerHTML=gh;
+ 
+  let kh='<div class="smsh"><span>Slutspel</span><span>Poäng</span></div>';
+  const base=24*12; total+=base;
+  kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">24 gruppettor &amp; -tvåor i 16-del</span><span class="smp">${base}</span></div>`;
+  S.thirds.forEach(g=>{total+=12;kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${getT(g)} (Grupp ${g}) i 16-del</span><span class="smp">12</span></div>`;});
+  const koLabels={r16:'till åttondelsfinal',r8:'till kvartsfinal',qf:'till semifinal'};
+  const koP={r16:25,r8:50,qf:100,sf:150};
+  ['r16','r8','qf','sf'].forEach(k=>{S.ko[k].forEach(t=>{total+=koP[k];kh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${t} ${koLabels[k]}</span><span class="smp">${koP[k]}</span></div>`;});});
+  document.getElementById('smKO').innerHTML=kh;
+ 
+  let bh='<div class="smsh"><span>Bonus</span><span>Poäng</span></div>';
+  [{id:'bWinner',l:'VM-vinnare',p:250},{id:'bBronze',l:'Brons',p:50},
+   {id:'bScorer',l:'Skyttekung',p:80},{id:'bAssist',l:'Assistkung',p:80},{id:'bBall',l:'Golden Ball',p:80},
+   {id:'bYellow',l:'Flest gula kort',p:40},{id:'bSweden',l:'Sveriges meste målgörare',p:40}].forEach(f=>{
+    const v=gv(f.id); if(!v) return; total+=f.p;
+    bh+=`<div class="smr"><span style="color:var(--muted);font-size:.74rem">${f.l}</span><span style="display:flex;align-items:center;gap:.3rem"><span style="font-size:.77rem">${v}</span><span class="smp">${f.p}</span></span></div>`;
+  });
+  document.getElementById('smBonus').innerHTML=bh;
+  document.getElementById('smTotal').textContent=total.toLocaleString('sv');
+  document.getElementById('smProg').style.width=Math.min(100,Math.round(total/150))+'%';
+  document.getElementById('smProgLbl').textContent=total.toLocaleString('sv')+' poäng tippade';
+}
+ 
+// ---- SHARE / SUBMIT ----
+async function copyLink(){
+  try{
+    await navigator.clipboard.writeText(getShareURL());
+    document.getElementById('shareNote').style.display='block';
+    toast('Länk kopierad!');
+  }catch(e){toast('Kopiera URL:en manuellt från adressfältet');}
+}
+async function submitTips(){
+  if(isLocked()){toast(lockMsg());return;}
+  await saveToFirebase();
+  const url=getShareURL();
+  const sub=encodeURIComponent('VM-tips 2026 — '+S.name);
+  const body=encodeURIComponent('Hej Axel!\n\nHär är mitt VM-tips:\n\n'+url+'\n\nÖppna länken för att se hela tipset.\n\n/ '+S.name+(S.email?'\n'+S.email:''));
+  window.open('mailto:axelandersson08@hotmail.com?subject='+sub+'&body='+body,'_blank');
+  document.getElementById('shareNote').style.display='block';
+  toast('Tips sparat och mail öppnas!');
+}
+ 
+// ---- ADMIN ----
+async function loadAdmin(){
+  const pw = document.getElementById('adminPw').value;
+  if(pw !== ADMIN_PW){toast('Fel lösenord!');return;}
+  const container = document.getElementById('adminContent');
+  container.innerHTML = '<div style="color:var(--muted);font-size:.85rem;padding:1rem 0">Laddar...</div>';
+  
+  let all;
+  try {
+    all = await window.fbLoadAllTips();
+  } catch(e) {
+    container.innerHTML = '<div class="card" style="color:#c8102e;font-size:.87rem">Fel vid laddning: '+e.message+'</div>';
+    console.error('loadAdmin error:', e);
+    return;
+  }
+ 
+  if(!all || !all.length){
+    container.innerHTML = '<div class="card" style="color:var(--muted);font-size:.87rem">Inga inlämnade tips ännu.</div>';
+    return;
+  }
+ 
+  all.sort((a,b)=>(b.ts||0)-(a.ts||0));
+  container.innerHTML = '<div style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">'+all.length+' tips inlämnade</div>';
+  
+  all.forEach(tip=>{
+    const card = document.createElement('div');
+    card.className = 'admin-card';
+    const ts = tip.ts ? new Date(tip.ts).toLocaleString('sv') : 'Okänt datum';
+    const key = (tip.name||'anon').toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'anon';
+    const url = location.href.split('?')[0]+'?tips='+encTip(tip);
+    const b = tip.bonus||{};
+    const bonusLines = [
+      b.winner && 'VM-vinnare: '+b.winner,
+      b.scorer && 'Skyttekung: '+b.scorer,
+      b.yellow && 'Flest gula kort: '+b.yellow,
+      b.sweden && 'Sver. målgörare: '+b.sweden,
+    ].filter(Boolean).join(' · ');
+    
+    card.innerHTML = '<div class="admin-hdr">'
+      + '<span class="admin-nm">'+(tip.name||'Okänd')+'</span>'
+      + '<span class="admin-meta">'+(tip.email||'')+'</span>'
+      + '<span class="admin-meta">'+ts+'</span>'
+      + '<button class="admin-tog" onclick="this.closest(\'.admin-card\').querySelector(\'.admin-body\').classList.toggle(\'open\')">Visa tips ▾</button>'
+      + '<button class="admin-tog" style="background:#c8102e;border-color:#c8102e;margin-left:4px" onclick="deleteTip(\''+key+'\',this)">🗑 Radera</button>'
+      + '</div>'
+      + '<div class="admin-body">'
+      + '<a class="admin-link" href="'+url+'" target="_blank">↗ Öppna hela tipset i ny flik</a>'
+      + (bonusLines ? '<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">'+bonusLines+'</div>' : '')
+      + '<div class="admin-detail-row"><span style="color:var(--muted)">Åttondelsfinal ('+((tip.ko&&tip.ko.r16)||[]).length+'/16)</span><span style="font-size:.76rem">'+((tip.ko&&tip.ko.r16)||[]).slice(0,6).join(', ')+(((tip.ko&&tip.ko.r16)||[]).length>6?'...':'')+'</span></div>'
+      + '<div class="admin-detail-row"><span style="color:var(--muted)">Kvartsfinal ('+((tip.ko&&tip.ko.r8)||[]).length+'/8)</span><span style="font-size:.76rem">'+((tip.ko&&tip.ko.r8)||[]).join(', ')+'</span></div>'
+      + '<div class="admin-detail-row"><span style="color:var(--muted)">Semifinal ('+((tip.ko&&tip.ko.qf)||[]).length+'/4)</span><span style="font-size:.76rem">'+((tip.ko&&tip.ko.qf)||[]).join(', ')+'</span></div>'
+      + '</div>';
+    container.appendChild(card);
+  });
+}
+ 
+async function deleteTip(key, btn){
+  if(!confirm('Radera tips för "'+key+'"?')) return;
+  btn.textContent = '...';
+  try {
+    await window.fbDeleteTip(key);
+    btn.closest('.admin-card').remove();
+    toast('Tips raderat!');
+  } catch(e) {
+    toast('Fel vid radering: '+e.message);
+  }
+}
+ 
+function setReadOnly(on){
+  if(!on) return;
+  // Disable all interactive elements except admin tab
+  document.querySelectorAll('.ob,.dbl,.bn,.bp:not(#adminSubmit),.bo,.pkb,.move-btn,.boi,.ko-item,.tc').forEach(el=>{
+    el.style.pointerEvents='none';
+    el.style.opacity='0.7';
+  });
+  // Show read-only banner in each page
+  const msg = document.createElement('div');
+  msg.style.cssText='background:#f0f0f0;border:1.5px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-size:.83rem;color:var(--muted);margin-bottom:1rem;text-align:center;';
+  msg.innerHTML='👁 <strong>Visningsläge</strong> — tipset är låst sedan 11 juni kl. 21:00. Du kan se men inte ändra.';
+  document.getElementById('page-groups').prepend(msg.cloneNode(true));
+}
+ 
+function encTip(tip){
+  try{return btoa(unescape(encodeURIComponent(JSON.stringify(tip))));}catch(e){return '';}
+}
+ 
+ 
+function openAdminDirect(){
+  document.getElementById('page-start').classList.remove('active');
+  document.getElementById('tabBar').style.display='flex';
+  document.getElementById('hsc').style.display='block';
+  showPage('admin');
+}
+
+// Expose to global for inline handlers
+window.startTipping=startTipping;
+window.navTab=navTab;
+window.goToThirds=goToThirds;
+window.goToKnockout=goToKnockout;
+window.toggleThird=toggleThird;
+window.activateDbl=activateDbl;
+window.pickM=pickM;
+window.toggleKO=toggleKO;
+window.moveTeam=moveTeam;
+window.copyLink=copyLink;
+window.submitTips=submitTips;
+window.loadAdmin=loadAdmin;
+window.deleteTip=deleteTip;
+window.setReadOnly=setReadOnly;
+window.loadSaved=loadSaved;
+window.openAdminDirect=openAdminDirect;
+ 
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+</script>
+</body>
+</html>
+ 
